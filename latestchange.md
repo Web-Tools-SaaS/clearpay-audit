@@ -48,3 +48,13 @@
 
 ### Why this changed
 - The rule engine now needs a single, deterministic place to convert per-rule results into the numeric score and user-facing summary shown in the audit flow without introducing AI or extra dependencies.
+
+## 2026-03-19
+
+### What changed
+- Added `lib/rule-engine/index.ts` with the pure `runRuleEngine` entry point that wires text normalisation, rule evaluation, scoring, summary generation, BNPL detection, and static FCA source references into one deterministic audit result.
+- Added `lib/rule-engine/rules.ts` with a typed placeholder `RULES` export so the new entry point compiles cleanly until the concrete rule list is populated.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The rule engine now needs a single importable orchestrator that returns the complete `AuditResult` shape for the audit flow without introducing async work, side effects, or network dependencies.
