@@ -2,11 +2,11 @@ import { createClient } from '@supabase/supabase-js'
 import { runRuleEngine } from '../lib/rule-engine/index'
 
 const TEST_URLS = [
-  'https://REAL_UK_SHOPIFY_STORE_1.co.uk/products/example',
-  'https://REAL_UK_SHOPIFY_STORE_2.co.uk/products/example',
-  'https://REAL_UK_SHOPIFY_STORE_3.co.uk/products/example',
-  'https://REAL_UK_SHOPIFY_STORE_4.co.uk/products/example',
-  'https://REAL_UK_SHOPIFY_STORE_5.co.uk/products/example',
+  'https://www.gray-nicolls.co.uk/products/imperia-1-0-player-ed-cricket-bat',
+  'https://gablesbeds.co.uk/products/aztec-divan-bed-pay-with-klarna',
+  'https://www.gray-nicolls.co.uk/products/led-platinum-edition-cricket-bat',
+  'https://sup.co.uk/products/aqua-marina-coral-touring',
+  'https://www.mystiqparfums.co.uk/products/4-x-3ml-discovery-set',
 ] as const
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
