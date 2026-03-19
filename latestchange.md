@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Added `app/api/audit/[id]/route.ts` as an Edge runtime Next.js 15 App Router GET endpoint that awaits promised route params, validates the audit ID, and returns only the safe audit fields from Supabase.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The app now needs a Cloudflare Pages-safe audit lookup endpoint so the frontend can poll audit status without exposing sensitive fields such as emails, crawl content, payment data, or service credentials.
+
+## 2026-03-19
+
+### What changed
 - Added `app/api/create-audit/route.ts` as an Edge runtime Next.js App Router endpoint that validates incoming audit requests, creates the initial `audits` row in Supabase, and then starts the crawl/rule-engine pipeline with an edge-safe fire-and-forget pattern.
 - Logged this task in `latestchange.md`.
 
