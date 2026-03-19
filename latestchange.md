@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Added `app/api/create-audit/route.ts` as an Edge runtime Next.js App Router endpoint that validates incoming audit requests, creates the initial `audits` row in Supabase, and then starts the crawl/rule-engine pipeline with an edge-safe fire-and-forget pattern.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The app now needs a production-ready create-audit API entry point for Cloudflare Pages that returns an audit ID immediately while the crawl and rule-engine work continues in the background without blocking the browser request.
+
+## 2026-03-19
+
+### What changed
 - Removed the binary file `app/favicon.ico` from the repository.
 - Updated `README.md` so it now reflects the real Cloudflare Pages workflow, environment setup, scripts, and the fact that the project uses system font fallbacks instead of remote font downloads.
 - Added this `latestchange.md` file to keep a simple running record of the latest repo-level changes.
