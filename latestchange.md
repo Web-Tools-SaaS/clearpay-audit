@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Added `app/api/audit/[id]/submit-extra/route.ts` as an Edge runtime Next.js 15 POST endpoint that validates 1-3 secure extra URLs, checks the audit is waiting for manual input, switches it back to `processing`, and resumes the crawl/rule-engine pipeline using the newly submitted pages.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- Audits that land on cart-gated or too-thin content now need a production-safe recovery path so a user can submit a few additional pages and let the compliance audit finish without creating a second audit record.
+
+## 2026-03-19
+
+### What changed
 - Added `app/api/audit/[id]/route.ts` as an Edge runtime Next.js 15 App Router GET endpoint that awaits promised route params, validates the audit ID, and returns only the safe audit fields from Supabase.
 - Logged this task in `latestchange.md`.
 
