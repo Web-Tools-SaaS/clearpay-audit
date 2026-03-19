@@ -1,6 +1,6 @@
 export const runtime = 'edge'
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { runRuleEngine } from '@/lib/rule-engine/index'
 import { getSupabaseServiceClient } from '@/lib/supabase'
 
@@ -58,8 +58,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const pipelinePromise = runAuditPipeline(data.id)
-    pipelinePromise.catch((err) => console.error('Pipeline error:', err))
+    after(runAuditPipeline(data.id))
 
     return NextResponse.json({
       audit_id: data.id,
