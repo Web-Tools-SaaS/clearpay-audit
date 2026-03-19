@@ -58,3 +58,12 @@
 
 ### Why this changed
 - The rule engine now needs a single importable orchestrator that returns the complete `AuditResult` shape for the audit flow without introducing async work, side effects, or network dependencies.
+
+## 2026-03-19
+
+### What changed
+- Added `scripts/test-engine.ts`, a standalone terminal test script that fetches five placeholder Klarna Shopify URLs through `r.jina.ai`, runs the local deterministic rule engine twice per page, prints audit output, and writes one verification row to the Supabase `audits` table.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The project now has a simple end-to-end smoke test for crawl input, deterministic rule-engine execution, and Supabase write access without depending on Next.js runtime APIs.
