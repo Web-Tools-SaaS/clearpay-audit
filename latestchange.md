@@ -3,6 +3,16 @@
 ## 2026-03-19
 
 ### What changed
+- Updated `app/layout.tsx` metadata to brand the app as ClearPay Audit with UK BNPL/FCA-focused title and description text while keeping the existing root html/body structure intact.
+- Replaced the `:root` and `@theme` blocks in `app/globals.css` with the new B2B SaaS compliance design tokens, system font stack, body smoothing, and global box-sizing rule.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The product now needs professional UK merchant-facing branding and a clearer compliance-focused visual foundation before more UI work is layered on top.
+
+## 2026-03-19
+
+### What changed
 - Added `app/api/audit/[id]/submit-extra/route.ts` as an Edge runtime Next.js 15 POST endpoint that validates 1-3 secure extra URLs, checks the audit is waiting for manual input, switches it back to `processing`, and resumes the crawl/rule-engine pipeline using the newly submitted pages.
 - Logged this task in `latestchange.md`.
 
