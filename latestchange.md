@@ -29,3 +29,13 @@
 
 ### Why this changed
 - The audit pipeline needs a consistent, dependency-free way to clean crawled content before search matching and to detect short cart-gated pages by word count.
+
+
+## 2026-03-19
+
+### What changed
+- Added `lib/rule-engine/evaluateRule.ts` with the pure rule evaluation flow for search matching, invert handling, evidence generation, and result shaping.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The rule engine now has a single reusable evaluator that converts normalized crawled text into the exact pass/fail result format expected by the audit pipeline.
