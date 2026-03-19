@@ -1,6 +1,6 @@
 # clearpay-audit
 
-Starter Next.js 15 project configured for Cloudflare Pages using `@cloudflare/next-on-pages`.
+Next.js 15 App Router project for ClearPay Audit, deployed to Cloudflare Pages with `@cloudflare/next-on-pages`.
 
 ## Stack
 
@@ -11,6 +11,13 @@ Starter Next.js 15 project configured for Cloudflare Pages using `@cloudflare/ne
 - Supabase client SDK
 - Stripe SDK
 - Resend SDK
+
+## Current product flow
+
+- `/` is the merchant landing page with the audit purchase form.
+- `/processing/[id]` is the client-side progress page that polls the audit status.
+- `/report/[id]` is the server-rendered audit report page that fetches completed audits directly from Supabase for fast SSR.
+- `/api/waitlist` accepts the report-page waitlist form submission.
 
 ## Prerequisites
 
@@ -99,5 +106,5 @@ wrangler pages dev .vercel/output/static
 ## Notes
 
 - The project uses system font fallbacks instead of remote Google font downloads so builds are more reliable in CI and restricted environments.
-- `app/page.tsx` remains the default scaffold content.
+- Dynamic App Router pages used in Pages builds should explicitly opt into the Edge Runtime when required by the adapter.
 - Binary assets were intentionally removed from the repository so GitHub PR creation works cleanly in environments that reject binary files.

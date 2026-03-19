@@ -3,6 +3,18 @@
 ## 2026-03-19
 
 ### What changed
+- Added `app/report/[id]/page.tsx` as an Edge-runtime server-rendered report page that fetches completed audits directly from Supabase, renders the score hero, priority fixes, full rule results, FCA sources, disclaimer, and the waitlist CTA.
+- Added `components/report/PlaceholderPDFButton.tsx`, `components/report/RuleAccordion.tsx`, and `components/report/WaitlistForm.tsx` for the client-only interactions on the report page without turning the page itself into a client component.
+- Added `app/api/waitlist/route.ts` as a minimal Edge POST endpoint for the report-page waitlist form.
+- Updated `README.md` so the current merchant flow now mentions the landing page, processing page, report page, and waitlist endpoint instead of the old scaffold note.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The audit flow needed a production-style report destination that loads fast with SSR, shows the full compliance result immediately for completed audits, and keeps the interactive pieces isolated to small client components.
+
+## 2026-03-19
+
+### What changed
 - Added `export const runtime = 'edge'` to `app/processing/[id]/page.tsx` so the dynamic processing route satisfies Cloudflare Pages and `@cloudflare/next-on-pages` edge-runtime requirements during preview and production builds.
 - Logged this task in `latestchange.md`.
 
