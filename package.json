@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "next lint",
     "pages:dev": "wrangler pages dev",
     "pages:build": "npx @cloudflare/next-on-pages",
     "type-check": "tsc --noEmit"
