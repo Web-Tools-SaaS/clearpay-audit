@@ -20,3 +20,12 @@
 
 ### Why this changed
 - The audit domain now has a single typed contract for rule definitions and audit output, which makes future rule-engine code easier to build consistently without introducing ad-hoc shapes.
+
+## 2026-03-19
+
+### What changed
+- Added `lib/rule-engine/normalise.ts` with pure string helpers for text normalisation and whitespace-based word counting for the rule-engine pipeline.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The audit pipeline needs a consistent, dependency-free way to clean crawled content before search matching and to detect short cart-gated pages by word count.
