@@ -1,6 +1,14 @@
 import AuditForm from "@/components/AuditForm";
 
+// 17 rules — CRITICAL(5) + HIGH(7) + MEDIUM(5)
+// DPC-006 is HIGH not CRITICAL: PS26/1 final rules moved right to withdraw
+// from Key Product Information to Additional Product Information.
 const complianceChecks = [
+  // CRITICAL (5)
+  {
+    label: "Detects Klarna, Clearpay, PayPal Pay in 3, or other BNPL presence",
+    severity: "CRITICAL",
+  },
   {
     label: "States BNPL is credit, not just a payment option",
     severity: "CRITICAL",
@@ -17,9 +25,10 @@ const complianceChecks = [
     label: "Explains missed-payment consequences up front",
     severity: "CRITICAL",
   },
+  // HIGH (7)
   {
-    label: "Includes the 14-day withdrawal right",
-    severity: "CRITICAL",
+    label: "Provides access to the 14-day right to withdraw in linked terms",
+    severity: "HIGH",
   },
   {
     label: "Names the lender and FCA firm reference number",
@@ -42,7 +51,12 @@ const complianceChecks = [
     severity: "HIGH",
   },
   {
-    label: "Explains automatic repayment authority clearly",
+    label: "Signposts to additional product information containing your rights",
+    severity: "HIGH",
+  },
+  // MEDIUM (5)
+  {
+    label: "Explains automatic repayment authority (CPA) clearly",
     severity: "MEDIUM",
   },
   {
@@ -54,8 +68,12 @@ const complianceChecks = [
     severity: "MEDIUM",
   },
   {
-    label: "Detects Klarna, Clearpay, or other BNPL presence",
-    severity: "CRITICAL",
+    label: "Discloses whether a credit reference agency check will be performed",
+    severity: "MEDIUM",
+  },
+  {
+    label: "Provides access to FOS complaint rights and escalation procedure",
+    severity: "MEDIUM",
   },
 ] as const;
 
@@ -72,7 +90,7 @@ const steps = [
   },
   {
     title: "We audit it",
-    description: "Our rule engine checks 14 FCA PS26/1 requirements.",
+    description: "Our rule engine checks 17 FCA PS26/1 requirements.",
   },
   {
     title: "Get your report",
@@ -112,7 +130,7 @@ export default function Home() {
             <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
               The FCA&apos;s July 15, 2026 deadline applies to every UK merchant
               offering Klarna or Clearpay. Get a full compliance audit in 60
-              seconds — check all 14 FCA requirements against your checkout.
+              seconds — check all 17 FCA PS26/1 requirements against your checkout.
             </p>
             <div className="mt-10 flex w-full justify-center">
               <AuditForm />
@@ -167,9 +185,9 @@ export default function Home() {
                 What we check
               </h2>
               <p className="mt-4 text-base leading-7 text-slate-600">
-                Every audit maps your product or checkout page against the 14
-                rule areas in our FCA PS26/1 review engine, with severity flags
-                for remediation priority.
+                Every audit maps your product or checkout page against 17 rule
+                areas derived from FCA PS26/1 (published 11 February 2026), with
+                severity flags for remediation priority.
               </p>
             </div>
             <div className="mt-10 grid gap-4 md:grid-cols-2">
