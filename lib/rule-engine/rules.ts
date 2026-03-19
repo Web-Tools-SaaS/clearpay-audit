@@ -543,7 +543,7 @@ export const RULES: Rule[] = [
   // information from a CRA before deciding whether to proceed with an agreement.
   // Source: A&O Shearman PS26/1 analysis (Feb 2026)
 
-  {
+    {
     id: 'DPC-016',
     category: 'Key Product Information — Credit Reference Agency Check',
     severity: 'MEDIUM',
@@ -574,7 +574,7 @@ export const RULES: Rule[] = [
       'Ensure your linked BNPL terms or KPI information states whether a credit reference agency ' +
       'check will or may be performed before the lender proceeds with the agreement. Example: ' +
       '"We may check your credit history with a credit reference agency before approving your ' +
-      "request." Your BNPL provider should supply this language as part of their compliant KPI template.",
+      'request." Your BNPL provider should supply this language as part of their compliant KPI template.',
   },
 
   // ─── NEW — PS26/1 Chapter 4 DISP complaint handling ──────────────────────
