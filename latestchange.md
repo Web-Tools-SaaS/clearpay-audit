@@ -67,3 +67,12 @@
 
 ### Why this changed
 - The project now has a simple end-to-end smoke test for crawl input, deterministic rule-engine execution, and Supabase write access without depending on Next.js runtime APIs.
+
+## 2026-03-19
+
+### What changed
+- Added `lib/supabase.ts` with a server-only `getSupabaseServiceClient()` helper that creates a Supabase client from `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The project now has a minimal shared helper for server-side routes that need service-role Supabase access without duplicating environment variable checks across API code.
