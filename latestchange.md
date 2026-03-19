@@ -3,6 +3,16 @@
 ## 2026-03-19
 
 ### What changed
+- Replaced the default `app/page.tsx` scaffold with a full ClearPay Audit landing page tailored to UK merchants, including the requested FCA deadline hero, workflow, compliance-check grid, authority-focused stats section, and footer CTA.
+- Added `components/AuditForm.tsx` as a dedicated client component for the landing page form, wired to the existing `/api/create-audit` endpoint with URL, provider, and work-email inputs.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The product needed a credible, merchant-facing homepage that explains the FCA BNPL compliance deadline clearly and gives visitors a direct path to start the paid £99 audit flow without relying on placeholder Next.js content.
+
+## 2026-03-19
+
+### What changed
 - Updated `app/layout.tsx` metadata to brand the app as ClearPay Audit with UK BNPL/FCA-focused title and description text while keeping the existing root html/body structure intact.
 - Replaced the `:root` and `@theme` blocks in `app/globals.css` with the new B2B SaaS compliance design tokens, system font stack, body smoothing, and global box-sizing rule.
 - Logged this task in `latestchange.md`.
