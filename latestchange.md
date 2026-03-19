@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Replaced the preview-only `app/api/waitlist/route.ts` stub with a real Edge-runtime Next.js 15 POST handler that imports `NextRequest`, `NextResponse`, and `getSupabaseServiceClient`, validates `{ email, audit_id? }`, writes to the Supabase `waitlist` table, and silently ignores duplicate emails via `onConflict: 'email'`.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The report waitlist form now needs to persist real signups in Supabase on Cloudflare Pages instead of returning a placeholder success message that never stores the email.
+
+## 2026-03-19
+
+### What changed
 - Added `app/report/[id]/page.tsx` as an Edge-runtime server-rendered report page that fetches completed audits directly from Supabase, renders the score hero, priority fixes, full rule results, FCA sources, disclaimer, and the waitlist CTA.
 - Added `components/report/PlaceholderPDFButton.tsx`, `components/report/RuleAccordion.tsx`, and `components/report/WaitlistForm.tsx` for the client-only interactions on the report page without turning the page itself into a client component.
 - Added `app/api/waitlist/route.ts` as a minimal Edge POST endpoint for the report-page waitlist form.
