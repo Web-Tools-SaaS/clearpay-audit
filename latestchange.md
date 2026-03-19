@@ -39,3 +39,12 @@
 
 ### Why this changed
 - The rule engine now has a single reusable evaluator that converts normalized crawled text into the exact pass/fail result format expected by the audit pipeline.
+
+## 2026-03-19
+
+### What changed
+- Added `lib/rule-engine/scorer.ts` with pure helpers to calculate audit scores, generate fixed-format FCA compliance summaries, and surface the top three fix suggestions by severity.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The rule engine now needs a single, deterministic place to convert per-rule results into the numeric score and user-facing summary shown in the audit flow without introducing AI or extra dependencies.
