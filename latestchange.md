@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Replaced `components/AuditForm.tsx` with the requested client-side hero form variant that uses pure React state, posts to `/api/create-audit`, shows a loading spinner, surfaces API errors inline, and redirects successful submissions to `/processing/[audit_id]`.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The landing page hero now needs the exact submission UX requested for production: a simpler three-field form, clearer CTA copy, and a direct handoff into the processing route after the audit is created.
+
+## 2026-03-19
+
+### What changed
 - Replaced the default `app/page.tsx` scaffold with a full ClearPay Audit landing page tailored to UK merchants, including the requested FCA deadline hero, workflow, compliance-check grid, authority-focused stats section, and footer CTA.
 - Added `components/AuditForm.tsx` as a dedicated client component for the landing page form, wired to the existing `/api/create-audit` endpoint with URL, provider, and work-email inputs.
 - Logged this task in `latestchange.md`.
