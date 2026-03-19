@@ -3,6 +3,15 @@
 ## 2026-03-19
 
 ### What changed
+- Added `export const runtime = 'edge'` to `app/processing/[id]/page.tsx` so the dynamic processing route satisfies Cloudflare Pages and `@cloudflare/next-on-pages` edge-runtime requirements during preview and production builds.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- Cloudflare preview builds were failing even though Next.js compiled locally, because the dynamic `/processing/[id]` App Router page did not explicitly opt into the Edge Runtime that the current Pages adapter requires for non-static routes.
+
+## 2026-03-19
+
+### What changed
 - Added `app/processing/[id]/page.tsx` as a client-side Next.js 15 processing screen that polls `/api/audit/[id]` every five seconds, redirects completed audits to `/report/[id]`, stops polling for `needs_input` and `error` states, and shows state-specific UI for loading, extra URL submission, and failure recovery.
 - Styled the extra URL form to match the existing `AuditForm` input/button treatment and added client-side validation before posting to `/api/audit/[id]/submit-extra`.
 - Logged this task in `latestchange.md`.
