@@ -25,8 +25,55 @@ const statusDot = {
   UNCLEAR: 'bg-[#6B6B6B]',
 } as const
 
+const remediationClasses = {
+  THEME_SETTING: 'border-[#3B82F6] text-[#3B82F6]',
+  COPY_CHANGE: 'border-[#F59E0B] text-[#F59E0B]',
+  LENDER_CONFIG: 'border-[#A855F7] text-[#A855F7]',
+  LINKED_TERMS_ONLY: 'border-[#6B6B6B] text-[#6B6B6B]',
+} as const
+
+function CompliantWordingBlock({ wording }: { wording: string }) {
+  const [copied, setCopied] = useState(false)
+
+  function handleCopy() {
+    void navigator.clipboard.writeText(wording).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div className="border border-[#22C55E] bg-[#080808] p-4">
+      <div className="flex items-center justify-between mb-3">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-[#22C55E]">
+          READY-TO-USE DISCLOSURE TEXT
+        </p>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="font-mono text-[10px] uppercase tracking-widest border border-[#22C55E] px-2 py-0.5 text-[#22C55E] transition hover:bg-[#22C55E] hover:text-black"
+        >
+          {copied ? 'COPIED' : 'COPY'}
+        </button>
+      </div>
+      <p className="text-xs leading-6 text-[#22C55E] font-mono">
+        {wording}
+      </p>
+      <p className="mt-2 text-[11px] text-[#6B6B6B]">
+        Paste this text adjacent to your BNPL payment option. It is derived from FCA PS26/1 Chapter 2 requirements.
+      </p>
+    </div>
+  )
+}
+
 export default function RuleAccordion({ rule }: RuleAccordionProps) {
   const [expanded, setExpanded] = useState(false)
+  const ruleDetails = rule as RuleCheckResult & {
+    remediation_type: keyof typeof remediationClasses
+    regulatory_consequence?: string | null
+    provider_fix?: string[] | null
+    compliant_wording?: string | null
+  }
 
   return (
     <article className="border-b border-[#2A2A2A] bg-[#080808]">
@@ -59,6 +106,11 @@ export default function RuleAccordion({ rule }: RuleAccordionProps) {
             <span className={`h-1.5 w-1.5 block ${statusDot[rule.status]}`} />
             {rule.status}
           </span>
+          <span
+            className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${remediationClasses[ruleDetails.remediation_type]}`}
+          >
+            {ruleDetails.remediation_type.replace('_', ' ')}
+          </span>
           <span className="font-mono text-[11px] text-[#6B6B6B]">
             {expanded ? '▲ hide' : '▼ view'}
           </span>
@@ -68,6 +120,17 @@ export default function RuleAccordion({ rule }: RuleAccordionProps) {
       {expanded ? (
         <div className="border-t border-[#2A2A2A] bg-[#0F0F0F] px-4 py-5">
           <div className="grid gap-5">
+
+            {rule.status === 'FAIL' && ruleDetails.regulatory_consequence ? (
+              <div className="border border-[#EF4444] bg-[#080808] p-4">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[#EF4444] mb-2">
+                  REGULATORY CONSEQUENCE
+                </p>
+                <p className="text-xs leading-6 text-[#EF4444]">
+                  {ruleDetails.regulatory_consequence}
+                </p>
+              </div>
+            ) : null}
 
             {/* Requirement */}
             <div>
@@ -112,6 +175,28 @@ export default function RuleAccordion({ rule }: RuleAccordionProps) {
                   {rule.fix_suggestion}
                 </p>
               </div>
+            ) : null}
+
+            {rule.status === 'FAIL' && ruleDetails.provider_fix && ruleDetails.provider_fix.length > 0 ? (
+              <div className="border border-[#2A2A2A] bg-[#080808] p-4">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-3">
+                  STEP-BY-STEP REMEDIATION
+                </p>
+                <ol className="space-y-2">
+                  {ruleDetails.provider_fix.map((step, i) => (
+                    <li key={i} className="flex items-start gap-3 text-xs leading-6 text-[#A1A1A1]">
+                      <span className="font-mono text-[10px] text-[#6B6B6B] shrink-0 mt-0.5">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
+
+            {rule.status === 'FAIL' && ruleDetails.compliant_wording ? (
+              <CompliantWordingBlock wording={ruleDetails.compliant_wording} />
             ) : null}
 
           </div>
