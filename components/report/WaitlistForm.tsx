@@ -29,7 +29,7 @@ export default function WaitlistForm() {
 
       setStatus('success')
       setEmail('')
-      setMessage(data.message ?? 'Thanks — we will let you know when it launches.')
+      setMessage(data.message ?? 'Confirmed — we will notify you on launch.')
     } catch (error) {
       setStatus('error')
       setMessage(
@@ -52,21 +52,23 @@ export default function WaitlistForm() {
         onChange={(event) => setEmail(event.target.value)}
         placeholder="you@store.co.uk"
         required
-        className="min-w-0 flex-1 rounded-lg border border-white/15 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-400/20"
+        className="min-w-0 flex-1 border border-[#3A3A3A] bg-[#080808] px-4 py-3 font-mono text-xs text-white placeholder-[#6B6B6B] outline-none transition focus:border-white"
       />
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-500"
+        className="border border-white bg-white px-5 py-3 font-mono text-[11px] font-semibold uppercase tracking-widest text-black transition hover:bg-[#E5E5E5] disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+        {status === 'loading' ? 'Submitting...' : 'Join Waitlist →'}
       </button>
+
       {message ? (
         <p
-          className={`text-sm ${
-            status === 'error' ? 'text-red-300' : 'text-emerald-300'
-          } sm:basis-full`}
+          className={`font-mono text-[11px] sm:basis-full ${
+            status === 'error' ? 'text-[#EF4444]' : 'text-[#22C55E]'
+          }`}
         >
+          {status === 'error' ? '[ERROR] ' : '[OK] '}
           {message}
         </p>
       ) : null}
