@@ -51,11 +51,12 @@ export default function AuditForm() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-lg rounded-xl bg-white p-8 text-left shadow-xl">
+    <div className="mx-auto w-full max-w-lg border border-[#3A3A3A] bg-[#0F0F0F] p-8 text-left">
       <form className="space-y-5" onSubmit={handleSubmit}>
-        <div className="space-y-2">
+
+        <div className="space-y-1.5">
           <label
-            className="text-sm font-medium text-slate-700"
+            className="block font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1]"
             htmlFor="audit-url"
           >
             Checkout or product page URL
@@ -67,13 +68,13 @@ export default function AuditForm() {
             value={url}
             onChange={(event) => setUrl(event.target.value)}
             placeholder="https://mystore.co.uk/products/example"
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-blue-700 focus:ring-4 focus:ring-blue-100"
+            className="w-full border border-[#3A3A3A] bg-[#080808] px-4 py-3 font-mono text-xs text-white placeholder-[#6B6B6B] outline-none transition focus:border-white focus:ring-0"
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
-            className="text-sm font-medium text-slate-700"
+            className="block font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1]"
             htmlFor="audit-provider"
           >
             BNPL Provider
@@ -82,7 +83,7 @@ export default function AuditForm() {
             id="audit-provider"
             value={provider}
             onChange={(event) => setProvider(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-blue-700 focus:ring-4 focus:ring-blue-100"
+            className="w-full border border-[#3A3A3A] bg-[#080808] px-4 py-3 font-mono text-xs text-white outline-none transition focus:border-white focus:ring-0 appearance-none cursor-pointer"
           >
             {providerOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -92,9 +93,9 @@ export default function AuditForm() {
           </select>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
-            className="text-sm font-medium text-slate-700"
+            className="block font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1]"
             htmlFor="audit-email"
           >
             Your email address
@@ -106,33 +107,34 @@ export default function AuditForm() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="merchant@yourstore.co.uk"
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-blue-700 focus:ring-4 focus:ring-blue-100"
+            className="w-full border border-[#3A3A3A] bg-[#080808] px-4 py-3 font-mono text-xs text-white placeholder-[#6B6B6B] outline-none transition focus:border-white focus:ring-0"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-lg bg-blue-700 py-4 text-base font-semibold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:bg-blue-500"
+          className="flex w-full items-center justify-center gap-3 border border-white bg-white px-4 py-4 font-mono text-xs font-semibold uppercase tracking-widest text-black transition hover:bg-[#E5E5E5] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? (
             <>
               <span
-                className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                className="h-4 w-4 animate-spin border border-black/20 border-t-black"
                 aria-hidden="true"
               />
-              <span>Running Audit...</span>
+              <span>Initializing Audit...</span>
             </>
           ) : (
-            'Run Compliance Audit →'
+            'Initialize Audit →'
           )}
         </button>
 
         {error ? (
-          <p className="text-sm text-red-600" role="alert">
-            {error}
+          <p className="font-mono text-[11px] text-[#EF4444]" role="alert">
+            [ERROR] {error}
           </p>
         ) : null}
+
       </form>
     </div>
   )
