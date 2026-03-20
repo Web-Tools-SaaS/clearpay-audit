@@ -313,13 +313,14 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-slate-100">
+            <footer className="border-t border-slate-200 bg-slate-100">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-6 text-sm text-slate-600 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
           <div>
             <p className="font-semibold text-slate-800">ClearPay Audit</p>
             <p className="mt-1">This tool is not legal advice.</p>
           </div>
           
+          <a
             href="https://www.fca.org.uk/publications/policy-statements/ps26-1-regulation-deferred-payment-credit"
             target="_blank"
             rel="noreferrer"
