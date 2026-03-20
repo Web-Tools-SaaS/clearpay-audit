@@ -13,7 +13,7 @@ const SOURCES: SourceReference[] = [
   {
     title: 'FCA PS26/1',
     url: 'https://www.handbook.fca.org.uk/handbook/CONC/',
-    description: 'FCA consultation paper outlining the proposed deferred payment credit rules and compliance approach.',
+    description: 'Comprehensive conduct of business standards and rules for firms providing consumer credit and related services.',
   },
   {
     title: 'Amendment Order 2025',
