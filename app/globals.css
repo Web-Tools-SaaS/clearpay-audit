@@ -1,38 +1,61 @@
-@import "tailwindcss";
+  @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --muted: #64748b;
-  --muted-bg: #f8fafc;
-  --border: #e2e8f0;
-  --primary: #1e40af;
-  --primary-hover: #1d3fa3;
-  --primary-fg: #ffffff;
-  --success: #16a34a;
-  --success-bg: #f0fdf4;
-  --warning: #d97706;
-  --warning-bg: #fffbeb;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --radius: 8px;
+  --bg: #080808;
+  --bg-panel: #0F0F0F;
+  --bg-raised: #141414;
+  --fg: #FFFFFF;
+  --fg-secondary: #A1A1A1;
+  --fg-muted: #6B6B6B;
+  --border: #2A2A2A;
+  --border-em: #3A3A3A;
+  --border-bright: #555555;
+  --green: #22C55E;
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --blue: #3B82F6;
+  --background: #080808;
+  --foreground: #FFFFFF;
+  --radius: 2px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --font-mono: var(--font-ibm-mono, "IBM Plex Mono", "Courier New", monospace);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  background: var(--bg);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: #ffffff;
+  color: #000000;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-em);
 }
