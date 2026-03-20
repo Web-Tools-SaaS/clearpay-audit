@@ -1,4 +1,6 @@
 import type { Rule, RuleCheckResult } from './types';
+import { COMPLIANT_WORDING } from './compliant-wording';
+import { PROVIDER_FIXES } from './provider-fixes';
 
 const EVIDENCE_WINDOW_SIZE = 120;
 const HALF_EVIDENCE_WINDOW_SIZE = Math.floor(EVIDENCE_WINDOW_SIZE / 2);
@@ -14,6 +16,7 @@ export function evaluateRule(
   rule: Rule,
   normalisedText: string,
   wordCount: number,
+  provider: string,
 ): RuleCheckResult {
   let matched = false;
 
@@ -82,6 +85,16 @@ export function evaluateRule(
     evidence = `Page content too short (${wordCount} words) to make a reliable determination. The required string(s) [${rule.search_strings.slice(0, 4).join(', ')}${rule.search_strings.length > 4 ? '...' : ''}] were not found, but the page may not have fully loaded. Submit your product or cart page URL for a complete audit.`;
   }
 
+  const compliant_wording =
+    status !== 'PASS' && !rule.invert
+      ? (COMPLIANT_WORDING[rule.id]?.[provider] ?? COMPLIANT_WORDING[rule.id]?.['other'] ?? null)
+      : null;
+
+  const provider_fix =
+    status !== 'PASS'
+      ? (PROVIDER_FIXES[rule.id]?.[provider] ?? PROVIDER_FIXES[rule.id]?.['other'] ?? null)
+      : null;
+
   return {
     rule_id: rule.id,
     category: rule.category,
@@ -92,5 +105,9 @@ export function evaluateRule(
     fca_url: rule.fca_url,
     evidence,
     fix_suggestion: status === 'PASS' ? null : rule.fix_suggestion,
+    remediation_type: rule.remediation_type,
+    regulatory_consequence: status === 'FAIL' ? rule.regulatory_consequence : null,
+    compliant_wording,
+    provider_fix,
   };
 }

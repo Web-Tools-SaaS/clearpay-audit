@@ -60,6 +60,8 @@ export const RULES: Rule[] = [
       'Not applicable — if no BNPL provider is detected on this page, submit your product page ' +
       'or cart page URL instead. BNPL disclosure content typically appears on product pages ' +
       'and cart pages rather than on the checkout confirmation page itself.',
+    remediation_type: 'THEME_SETTING',
+    regulatory_consequence: 'If no BNPL provider is detected on this page, our engine cannot verify compliance. After 15 July 2026, operating a DPC arrangement through an unlicensed or undetected provider is a criminal offence under FSMA 2000 s.19. The FCA may require the lender to withdraw the BNPL option from your checkout until disclosures are in place.'
   },
 
   {
@@ -83,6 +85,8 @@ export const RULES: Rule[] = [
       'which must be repaid." The words "credit" or "borrowing" must appear in close proximity ' +
       'to the BNPL option. This wording should be supplied by your BNPL provider — ask them ' +
       'for their FCA-compliant KPI disclosure template.',
+    remediation_type: 'THEME_SETTING',
+    regulatory_consequence: 'Failure to identify BNPL as credit means the pre-contract Key Product Information disclosure obligation under FCA PS26/1 Chapter 2 and CONC 4.2A is unmet. The FCA can direct the lender to suspend the BNPL product from your checkout. Under the Consumer Duty (FCA PS22/9), presenting BNPL as a payment method without credit identification also constitutes a foreseeable consumer harm.'
   },
 
   {
@@ -116,6 +120,8 @@ export const RULES: Rule[] = [
       'The instalment amount in GBP (£) must appear near the BNPL option. Your BNPL ' +
       "provider's On-Site Messaging widget typically handles this — ensure it is correctly " +
       'configured and rendering.',
+    remediation_type: 'THEME_SETTING',
+    regulatory_consequence: 'Absence of instalment count and GBP amounts means mandatory Key Product Information under PS26/1 Chapter 2 is incomplete. A consumer entering a DPC agreement without this information has grounds to challenge the validity of the agreement. The FCA can direct the lender to suspend the product from your checkout until KPI is complete.'
   },
 
   {
@@ -146,6 +152,8 @@ export const RULES: Rule[] = [
       'This must be stated explicitly even though the rate is zero — PS26/1 requires it to ' +
       "appear in Key Product Information. Your BNPL provider's on-site messaging widget " +
       'should surface this automatically when correctly configured.',
+    remediation_type: 'THEME_SETTING',
+    regulatory_consequence: 'The interest rate is a named required element of Key Product Information under PS26/1 Chapter 2. Failure to state 0% explicitly means the KPI obligation is unmet. The FCA has confirmed this must appear in writing. Non-compliance after 15 July 2026 exposes the lender to supervisory action and can result in the BNPL option being suspended from your checkout.'
   },
 
   {
@@ -179,6 +187,8 @@ export const RULES: Rule[] = [
       'affect your credit score." This is a mandatory disclosure under FCA PS26/1 Key Product ' +
       "Information rules. Your lender's compliant KPI template should include this wording — " +
       'request it from your BNPL provider.',
+    remediation_type: 'THEME_SETTING',
+    regulatory_consequence: 'Consequences of missed payments is a named required element of Key Product Information under FCA PS26/1 Chapter 2. Without this disclosure, consumers cannot make an informed decision about entering the agreement. Under the Consumer Duty (PS22/9), the lender is in breach of the requirement to support informed decisions. The FCA may direct the lender to withdraw the product from your checkout.'
   },
 
   // ─── HIGH (7 rules — 10 points each) ──────────────────────────────────────
@@ -220,6 +230,8 @@ export const RULES: Rule[] = [
       'any reason." A clearly labelled link from your checkout or product page to terms containing ' +
       "this language is sufficient. Your BNPL provider's standard T&C should already contain " +
       'this under Consumer Credit Act 1974 s.66A.',
+    remediation_type: 'LINKED_TERMS_ONLY',
+    regulatory_consequence: null
   },
 
   {
@@ -261,6 +273,8 @@ export const RULES: Rule[] = [
       'For Clearpay: "Clearpay Finance Ltd, authorised by the FCA, FRN [verify at register.fca.org.uk]." ' +
       "Always verify your provider's current FRN at https://register.fca.org.uk before " +
       'publishing — FRNs can change when a firm updates its regulatory permissions.',
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   {
@@ -291,6 +305,8 @@ export const RULES: Rule[] = [
       'early settlement rights. Add a visible link labelled "Your payment rights" or "Full terms" ' +
       "from your checkout page to a page containing this language. Your BNPL provider's standard " +
       'terms should already include early settlement rights — link to those terms.',
+    remediation_type: 'LINKED_TERMS_ONLY',
+    regulatory_consequence: null
   },
 
   {
@@ -323,6 +339,8 @@ export const RULES: Rule[] = [
       '1974 applies. Most BNPL/DPC agreements are exempt — if so, state: ' +
       '"This credit agreement is not covered by Section 75 of the Consumer Credit Act 1974." ' +
       "This should appear in the lender's T&C linked from your checkout page.",
+    remediation_type: 'LINKED_TERMS_ONLY',
+    regulatory_consequence: null
   },
 
   {
@@ -362,6 +380,8 @@ export const RULES: Rule[] = [
       '"treat yourself", "why wait?", or "guilt-free" are non-compliant under FCA CONC 3.3, ' +
       'which requires financial promotions to be fair, clear and not misleading. Replace with ' +
       'neutral factual descriptions: e.g. "Pay in 3 interest-free instalments with Klarna."',
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   {
@@ -396,6 +416,8 @@ export const RULES: Rule[] = [
       "Add a clearly labelled link to the lender's full Terms and Conditions near the BNPL " +
       'payment option. Example: "By using Klarna, you agree to Klarna\'s Terms and Conditions [link]." ' +
       "The link must be functional and lead directly to the lender's current credit agreement terms.",
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   // ─── NEW — PS26/1 Chapter 2 final amendment (not in CP25/23) ──────────────
@@ -438,6 +460,8 @@ export const RULES: Rule[] = [
       'make a complaint, see the full credit terms [link]." ' +
       'This is a new mandatory KPI requirement added in FCA PS26/1 — it must appear as part of ' +
       'the inline KPI, not only in linked terms.',
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   // ─── MEDIUM (5 rules — 5 points each) ─────────────────────────────────────
@@ -473,6 +497,8 @@ export const RULES: Rule[] = [
       '(CPA or direct debit) and state that customers can cancel this authority through their ' +
       'bank at any time. This language should appear in the lender\'s credit agreement linked ' +
       'from your checkout.',
+    remediation_type: 'LINKED_TERMS_ONLY',
+    regulatory_consequence: null
   },
 
   {
@@ -505,6 +531,8 @@ export const RULES: Rule[] = [
       "While primarily the lender's obligation, adding a reference to free debt advice services " +
       'demonstrates Consumer Duty compliance. Consider adding: "If you\'re struggling with payments, ' +
       'free help is available at MoneyHelper (moneyhelper.org.uk) or StepChange (stepchange.org)."',
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   {
@@ -535,6 +563,8 @@ export const RULES: Rule[] = [
       'Example: "Klarna Financial Services UK Ltd is authorised and regulated by the Financial ' +
       'Conduct Authority." Verify your provider\'s current authorisation status at ' +
       'https://register.fca.org.uk — the TPR notification window opens 15 May 2026.',
+    remediation_type: 'COPY_CHANGE',
+    regulatory_consequence: null
   },
 
   // ─── NEW — PS26/1 Chapter 2 CRA amendment ─────────────────────────────────
@@ -575,6 +605,8 @@ export const RULES: Rule[] = [
       'check will or may be performed before the lender proceeds with the agreement. Example: ' +
       '"We may check your credit history with a credit reference agency before approving your ' +
       'request." Your BNPL provider should supply this language as part of their compliant KPI template.',
+    remediation_type: 'LENDER_CONFIG',
+    regulatory_consequence: null
   },
 
   // ─── NEW — PS26/1 Chapter 4 DISP complaint handling ──────────────────────
@@ -615,5 +647,7 @@ export const RULES: Rule[] = [
       "Add a link to your BNPL provider's complaints procedure near the BNPL option or in your " +
       'footer. Example: "Not happy? See how to make a complaint [link to lender complaints page]." ' +
       'This is a new right for DPC consumers under FCA PS26/1 Chapter 4 from 15 July 2026.',
+    remediation_type: 'LINKED_TERMS_ONLY',
+    regulatory_consequence: null
   },
 ]
