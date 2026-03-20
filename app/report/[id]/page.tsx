@@ -7,6 +7,12 @@ import PlaceholderPDFButton from '@/components/report/PlaceholderPDFButton'
 import RuleAccordion from '@/components/report/RuleAccordion'
 import WaitlistForm from '@/components/report/WaitlistForm'
 
+type Roadmap = {
+  this_week: string[]
+  this_month: string[]
+  before_deadline: string[]
+}
+
 type ReportPageProps = {
   params: Promise<{ id: string }>
 }
@@ -51,6 +57,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
   }
 
   const result = audit.audit_result as AuditResult
+  const roadmap = (result as AuditResult & { roadmap?: Partial<Roadmap> }).roadmap
   const score = audit.score ?? result.score ?? 0
   const passedCount = result.rules.filter((rule) => rule.status === 'PASS').length
   const failedCount = result.rules.filter((rule) => rule.status === 'FAIL').length
@@ -156,32 +163,108 @@ export default async function ReportPage({ params }: ReportPageProps) {
           </div>
         </section>
 
-        {/* ── PRIORITY FIXES ── */}
+        {/* ── REMEDIATION ROADMAP ── */}
         <section className="bg-[#0F0F0F] border-b border-[#2A2A2A]">
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
             <div className="max-w-3xl mb-10">
-              <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                {/* PRIORITY ACTIONS */}
-              </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
-                Top 3 Priority Fixes
+                Remediation Roadmap
               </h2>
+              <p className="mt-2 text-xs leading-6 text-[#A1A1A1]">
+                Fixes grouped by urgency. Complete CRITICAL issues before launch. HIGH issues must be resolved before 15 July 2026. MEDIUM issues are good-practice disclosures required under the Consumer Duty.
+              </p>
             </div>
-            <div className="space-y-0 divide-y divide-[#2A2A2A] border border-[#2A2A2A]">
-              {result.top_3_fixes.map((fix, index) => (
-                <div
-                  key={`${index + 1}-${fix}`}
-                  className="flex items-start gap-5 bg-[#080808] p-6"
-                >
-                  <span
-                    className="font-mono text-xs font-bold shrink-0 mt-0.5"
-                    style={{ color: scoreTone.color }}
-                  >
-                    [{String(index + 1).padStart(2, '0')}]
-                  </span>
-                  <p className="text-xs leading-6 text-[#A1A1A1]">{fix}</p>
+
+            <div className="space-y-6">
+
+              {roadmap?.this_week && roadmap.this_week.length > 0 && (
+                <div className="border border-[#EF4444]">
+                  <div className="flex items-center justify-between border-b border-[#2A2A2A] bg-[#0F0F0F] px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <span className="h-1.5 w-1.5 bg-[#EF4444] block" />
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-[#EF4444] font-semibold">
+                        Fix This Week — CRITICAL
+                      </span>
+                    </div>
+                    <span className="font-mono text-[11px] text-[#EF4444]">
+                      {roadmap.this_week.length} issue{roadmap.this_week.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <div className="divide-y divide-[#2A2A2A]">
+                    {roadmap.this_week.map((fix, index) => (
+                      <div key={`crit-${index}`} className="flex items-start gap-5 bg-[#080808] p-5">
+                        <span className="font-mono text-xs font-bold text-[#EF4444] shrink-0 mt-0.5">
+                          [{String(index + 1).padStart(2, '0')}]
+                        </span>
+                        <p className="text-xs leading-6 text-[#A1A1A1]">{fix}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              )}
+
+              {roadmap?.this_month && roadmap.this_month.length > 0 && (
+                <div className="border border-[#F59E0B]">
+                  <div className="flex items-center justify-between border-b border-[#2A2A2A] bg-[#0F0F0F] px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <span className="h-1.5 w-1.5 bg-[#F59E0B] block" />
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-[#F59E0B] font-semibold">
+                        Fix This Month — HIGH
+                      </span>
+                    </div>
+                    <span className="font-mono text-[11px] text-[#F59E0B]">
+                      {roadmap.this_month.length} issue{roadmap.this_month.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <div className="divide-y divide-[#2A2A2A]">
+                    {roadmap.this_month.map((fix, index) => (
+                      <div key={`high-${index}`} className="flex items-start gap-5 bg-[#080808] p-5">
+                        <span className="font-mono text-xs font-bold text-[#F59E0B] shrink-0 mt-0.5">
+                          [{String(index + 1).padStart(2, '0')}]
+                        </span>
+                        <p className="text-xs leading-6 text-[#A1A1A1]">{fix}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {roadmap?.before_deadline && roadmap.before_deadline.length > 0 && (
+                <div className="border border-[#3B82F6]">
+                  <div className="flex items-center justify-between border-b border-[#2A2A2A] bg-[#0F0F0F] px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <span className="h-1.5 w-1.5 bg-[#3B82F6] block" />
+                      <span className="font-mono text-[11px] uppercase tracking-widest text-[#3B82F6] font-semibold">
+                        Before 15 July 2026 — MEDIUM
+                      </span>
+                    </div>
+                    <span className="font-mono text-[11px] text-[#3B82F6]">
+                      {roadmap.before_deadline.length} issue{roadmap.before_deadline.length !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  <div className="divide-y divide-[#2A2A2A]">
+                    {roadmap.before_deadline.map((fix, index) => (
+                      <div key={`med-${index}`} className="flex items-start gap-5 bg-[#080808] p-5">
+                        <span className="font-mono text-xs font-bold text-[#3B82F6] shrink-0 mt-0.5">
+                          [{String(index + 1).padStart(2, '0')}]
+                        </span>
+                        <p className="text-xs leading-6 text-[#A1A1A1]">{fix}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {(!roadmap?.this_week || roadmap.this_week.length === 0) &&
+              (!roadmap?.this_month || roadmap.this_month.length === 0) &&
+              (!roadmap?.before_deadline || roadmap.before_deadline.length === 0) && (
+                <div className="border border-[#22C55E] bg-[#080808] p-6">
+                  <p className="font-mono text-xs text-[#22C55E]">
+                    [OK] No remediation required. All 17 FCA PS26/1 checks passed.
+                  </p>
+                </div>
+              )}
+
             </div>
           </div>
         </section>

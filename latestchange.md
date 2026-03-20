@@ -1,5 +1,15 @@
 # Latest Change
 
+## 2026-03-20
+
+### What changed
+- Updated `components/report/RuleAccordion.tsx` to show remediation-type badges in the collapsed row and, for failed rules, render the new regulatory consequence, provider remediation steps, and copyable compliant wording blocks inside the expanded panel.
+- Replaced the report page `PRIORITY FIXES` section in `app/report/[id]/page.tsx` with the new roadmap-based remediation layout grouped into this week, this month, and before-deadline urgency buckets.
+- Logged this task in `latestchange.md`.
+
+### Why this changed
+- The report UI now needs to surface richer remediation guidance directly next to each failed rule and present the summary fix plan as a deadline-aware roadmap instead of a simple top-three list.
+
 ## 2026-03-19
 
 ### What changed
