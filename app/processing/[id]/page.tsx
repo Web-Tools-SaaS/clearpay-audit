@@ -223,7 +223,7 @@ export default function ProcessingPage() {
 
           <div className="border-b border-[#2A2A2A] pb-6 mb-6">
             <p className="font-mono text-[11px] uppercase tracking-widest text-[#F59E0B]">
-              // ADDITIONAL INPUT REQUIRED
+              {/* ADDITIONAL INPUT REQUIRED */}
             </p>
             <h1 className="mt-3 font-mono text-base font-semibold uppercase tracking-wide text-white">
               Page content insufficient
@@ -296,7 +296,7 @@ export default function ProcessingPage() {
           <span className="font-mono text-sm text-[#EF4444] font-bold shrink-0">[!]</span>
           <div>
             <p className="font-mono text-[11px] uppercase tracking-widest text-[#EF4444]">
-              // AUDIT FAILED
+              {/* AUDIT FAILED */}
             </p>
             <h1 className="mt-2 font-mono text-base font-semibold uppercase tracking-wide text-white">
               Something went wrong
@@ -325,4 +325,4 @@ export default function ProcessingPage() {
       </div>
     </main>
   )
-                }
+}
