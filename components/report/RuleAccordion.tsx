@@ -8,94 +8,112 @@ type RuleAccordionProps = {
 }
 
 const severityClasses = {
-  CRITICAL: 'bg-red-50 text-red-700 border-red-200',
-  HIGH: 'bg-amber-50 text-amber-700 border-amber-200',
-  MEDIUM: 'bg-blue-50 text-blue-700 border-blue-200',
+  CRITICAL: 'border-[#EF4444] text-[#EF4444]',
+  HIGH: 'border-[#F59E0B] text-[#F59E0B]',
+  MEDIUM: 'border-[#3B82F6] text-[#3B82F6]',
 } as const
 
 const statusClasses = {
-  PASS: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  FAIL: 'bg-red-50 text-red-700 border-red-200',
-  UNCLEAR: 'bg-slate-100 text-slate-700 border-slate-200',
+  PASS: 'border-[#22C55E] text-[#22C55E]',
+  FAIL: 'border-[#EF4444] text-[#EF4444]',
+  UNCLEAR: 'border-[#6B6B6B] text-[#6B6B6B]',
+} as const
+
+const statusDot = {
+  PASS: 'bg-[#22C55E]',
+  FAIL: 'bg-[#EF4444]',
+  UNCLEAR: 'bg-[#6B6B6B]',
 } as const
 
 export default function RuleAccordion({ rule }: RuleAccordionProps) {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <article className="border-b border-[#2A2A2A] bg-[#080808]">
       <button
         type="button"
         onClick={() => setExpanded((current) => !current)}
-        className="flex w-full flex-col gap-4 px-5 py-5 text-left transition hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between"
+        className="flex w-full flex-col gap-3 px-4 py-4 text-left transition hover:bg-[#0F0F0F] sm:flex-row sm:items-center sm:justify-between sm:gap-4"
         aria-expanded={expanded}
       >
-        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <span className="text-sm font-bold tracking-[0.16em] text-slate-950">
+        {/* Left: ID + Category */}
+        <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 flex-1 min-w-0">
+          <span className="font-mono text-xs font-semibold tracking-wider text-white w-[180px] shrink-0">
             {rule.rule_id}
           </span>
-          <span className="text-sm text-slate-600">{rule.category}</span>
+          <span className="font-mono text-[11px] text-[#A1A1A1] truncate">
+            {rule.category}
+          </span>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+
+        {/* Right: Severity + Status + Toggle */}
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
           <span
-            className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${severityClasses[rule.severity]}`}
+            className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${severityClasses[rule.severity]}`}
           >
             {rule.severity}
           </span>
           <span
-            className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] ${statusClasses[rule.status]}`}
+            className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest flex items-center gap-1.5 ${statusClasses[rule.status]}`}
           >
+            <span className={`h-1.5 w-1.5 block ${statusDot[rule.status]}`} />
             {rule.status}
           </span>
-          <span className="text-sm font-medium text-slate-500">
-            {expanded ? 'Hide details' : 'View details'}
+          <span className="font-mono text-[11px] text-[#6B6B6B]">
+            {expanded ? '▲ hide' : '▼ view'}
           </span>
         </div>
       </button>
 
       {expanded ? (
-        <div className="border-t border-slate-200 px-5 py-5">
+        <div className="border-t border-[#2A2A2A] bg-[#0F0F0F] px-4 py-5">
           <div className="grid gap-5">
+
+            {/* Requirement */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                Requirement
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-slate-700">{rule.requirement}</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-2">
+                REQUIREMENT
+              </p>
+              <p className="text-xs leading-6 text-[#A1A1A1]">{rule.requirement}</p>
             </div>
 
+            {/* Evidence */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                Evidence
-              </h3>
-              <pre className="mt-2 overflow-x-auto rounded-xl bg-slate-100 p-4 font-mono text-xs leading-6 text-slate-700 whitespace-pre-wrap">
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-2">
+                EVIDENCE
+              </p>
+              <pre className="overflow-x-auto border border-[#2A2A2A] bg-[#080808] p-4 font-mono text-[11px] leading-5 text-[#A1A1A1] whitespace-pre-wrap">
                 {rule.evidence}
               </pre>
             </div>
 
+            {/* FCA Source */}
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-                FCA Source
-              </h3>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] mb-2">
+                FCA SOURCE
+              </p>
               <a
                 href={rule.fca_url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-2 inline-flex text-sm font-semibold text-blue-700 underline decoration-blue-300 underline-offset-4 transition hover:text-blue-800"
+                className="font-mono text-[11px] text-[#A1A1A1] underline underline-offset-4 decoration-[#3A3A3A] transition hover:text-white"
               >
                 {rule.fca_source}
               </a>
             </div>
 
+            {/* Fix Suggestion */}
             {rule.status === 'FAIL' && rule.fix_suggestion ? (
-              <div className="rounded-2xl border border-yellow-200 bg-yellow-50 p-4">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-yellow-800">
-                  Fix suggestion
-                </h3>
-                <p className="mt-2 text-sm leading-7 text-yellow-900">
+              <div className="border-l-2 border-[#F59E0B] pl-4 bg-[#080808] py-4 pr-4">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[#F59E0B] mb-2">
+                  FIX SUGGESTION
+                </p>
+                <p className="text-xs leading-6 text-[#A1A1A1]">
                   {rule.fix_suggestion}
                 </p>
               </div>
             ) : null}
+
           </div>
         </div>
       ) : null}
