@@ -11,8 +11,8 @@ const SOURCES: SourceReference[] = [
     description: 'Final FCA policy statement covering deferred payment credit regulation and implementation expectations.',
   },
   {
-    title: 'FCA CP25/23',
-    url: 'https://www.fca.org.uk/publications/consultation-papers/cp25-23-deferred-payment-credit',
+    title: 'FCA PS26/1',
+    url: 'https://www.handbook.fca.org.uk/handbook/CONC/',
     description: 'FCA consultation paper outlining the proposed deferred payment credit rules and compliance approach.',
   },
   {
