@@ -14,24 +14,24 @@ type ReportPageProps = {
 function getScoreTone(score: number) {
   if (score >= 80) {
     return {
-      color: '#16a34a',
-      ringClass: 'ring-emerald-200',
-      bgClass: 'bg-emerald-50',
+      color: '#22C55E',
+      label: 'COMPLIANT',
+      borderColor: '#22C55E',
     }
   }
 
   if (score >= 60) {
     return {
-      color: '#d97706',
-      ringClass: 'ring-amber-200',
-      bgClass: 'bg-amber-50',
+      color: '#F59E0B',
+      label: 'AMBER — ACTION REQUIRED',
+      borderColor: '#F59E0B',
     }
   }
 
   return {
-    color: '#dc2626',
-    ringClass: 'ring-red-200',
-    bgClass: 'bg-red-50',
+    color: '#EF4444',
+    label: 'NON-COMPLIANT — IMMEDIATE ACTION',
+    borderColor: '#EF4444',
   }
 }
 
@@ -54,16 +54,21 @@ export default async function ReportPage({ params }: ReportPageProps) {
   const score = audit.score ?? result.score ?? 0
   const passedCount = result.rules.filter((rule) => rule.status === 'PASS').length
   const failedCount = result.rules.filter((rule) => rule.status === 'FAIL').length
+  const unclearCount = result.rules.filter((rule) => rule.status === 'UNCLEAR').length
   const scoreTone = getScoreTone(score)
   const formattedDate = new Intl.DateTimeFormat('en-GB', {
     dateStyle: 'long',
   }).format(new Date(audit.created_at))
 
+  const scoreBarWidth = `${score}%`
+
   return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <header className="bg-[#0f172a] text-white">
+    <div className="min-h-screen bg-[#080808] text-white">
+
+      {/* ── HEADER ── */}
+      <header className="border-b border-[#2A2A2A] bg-[#080808]">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-4 sm:px-8 lg:px-12">
-          <span className="text-lg font-bold tracking-tight sm:text-xl">
+          <span className="font-mono text-sm font-semibold uppercase tracking-widest text-white">
             ClearPay Audit
           </span>
           <PlaceholderPDFButton />
@@ -71,92 +76,156 @@ export default async function ReportPage({ params }: ReportPageProps) {
       </header>
 
       <main>
-        <section className="bg-white">
-          <div className="mx-auto grid w-full max-w-7xl gap-10 px-6 py-14 sm:px-8 lg:grid-cols-[1.1fr_320px] lg:px-12 lg:py-20">
+
+        {/* ── SCORE HERO ── */}
+        <section className="bg-[#080808] border-b border-[#2A2A2A]">
+          <div className="mx-auto grid w-full max-w-7xl gap-8 px-6 py-14 sm:px-8 lg:grid-cols-[1fr_320px] lg:px-12 lg:py-20">
+
+            {/* Meta */}
             <div>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="inline-flex max-w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700">
-                  <span className="truncate">{audit.url}</span>
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <span className="border border-[#3A3A3A] px-3 py-1 font-mono text-[11px] text-[#A1A1A1] truncate max-w-full">
+                  {audit.url}
                 </span>
-                <span className="inline-flex rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">
+                <span className="border border-[#3A3A3A] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1]">
                   {audit.bnpl_provider || result.provider}
                 </span>
               </div>
-              <p className="mt-5 text-sm font-medium text-slate-500">
-                Audit completed on {formattedDate}
+              <p className="font-mono text-[11px] text-[#6B6B6B] uppercase tracking-widest">
+                Audit completed {formattedDate}
               </p>
-              <h1 className="mt-6 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
-                Your FCA BNPL compliance report
+              <h1 className="mt-4 max-w-3xl text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
+                FCA BNPL Compliance Report
               </h1>
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
+              <p className="mt-4 max-w-2xl text-xs leading-6 text-[#A1A1A1]">
                 {result.summary}
               </p>
+
+              {/* Stats row */}
+              <div className="mt-8 flex flex-wrap gap-6">
+                <div className="border-l-2 border-[#22C55E] pl-3">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Passed</p>
+                  <p className="font-mono text-xl font-bold text-[#22C55E]">{passedCount}</p>
+                </div>
+                <div className="border-l-2 border-[#EF4444] pl-3">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Failed</p>
+                  <p className="font-mono text-xl font-bold text-[#EF4444]">{failedCount}</p>
+                </div>
+                {unclearCount > 0 && (
+                  <div className="border-l-2 border-[#6B6B6B] pl-3">
+                    <p className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Unclear</p>
+                    <p className="font-mono text-xl font-bold text-[#6B6B6B]">{unclearCount}</p>
+                  </div>
+                )}
+              </div>
             </div>
 
+            {/* Score panel */}
             <div className="flex justify-center lg:justify-end">
               <div
-                className={`flex h-64 w-64 flex-col items-center justify-center rounded-full ${scoreTone.bgClass} ring-8 ${scoreTone.ringClass}`}
-                style={{ color: scoreTone.color }}
+                className="border bg-[#0F0F0F] p-8 w-full max-w-[300px] flex flex-col"
+                style={{ borderColor: scoreTone.borderColor, borderLeftWidth: '4px' }}
               >
-                <span className="text-6xl font-bold tracking-tight">{score}</span>
-                <span className="mt-2 text-lg font-semibold text-slate-500">
-                  /100
-                </span>
+                <p className="font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1] mb-4">
+                  COMPLIANCE SCORE
+                </p>
+                <p
+                  className="font-mono text-7xl font-bold leading-none"
+                  style={{ color: scoreTone.color }}
+                >
+                  {score}
+                </p>
+                <p className="font-mono text-sm text-[#6B6B6B] mt-1">/ 100</p>
+
+                {/* Score bar */}
+                <div className="mt-5 h-1 w-full bg-[#2A2A2A]">
+                  <div
+                    className="h-1"
+                    style={{ width: scoreBarWidth, backgroundColor: scoreTone.color }}
+                  />
+                </div>
+
+                <p
+                  className="mt-3 font-mono text-[10px] uppercase tracking-widest font-semibold"
+                  style={{ color: scoreTone.color }}
+                >
+                  {scoreTone.label}
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-sky-50">
+        {/* ── PRIORITY FIXES ── */}
+        <section className="bg-[#0F0F0F] border-b border-[#2A2A2A]">
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
-                Priority fixes
+            <div className="max-w-3xl mb-10">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
+                // PRIORITY ACTIONS
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
-                Your top 3 priority actions
+              <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
+                Top 3 Priority Fixes
               </h2>
             </div>
-            <ol className="mt-10 grid gap-4">
+            <div className="space-y-0 divide-y divide-[#2A2A2A] border border-[#2A2A2A]">
               {result.top_3_fixes.map((fix, index) => (
-                <li
+                <div
                   key={`${index + 1}-${fix}`}
-                  className="rounded-2xl border border-slate-200 border-l-4 border-l-blue-600 bg-white p-6 shadow-sm"
+                  className="flex items-start gap-5 bg-[#080808] p-6"
                 >
-                  <div className="flex items-start gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-950 text-sm font-bold text-white">
-                      {index + 1}
-                    </span>
-                    <p className="pt-1 text-base leading-7 text-slate-700">{fix}</p>
-                  </div>
-                </li>
+                  <span
+                    className="font-mono text-xs font-bold shrink-0 mt-0.5"
+                    style={{ color: scoreTone.color }}
+                  >
+                    [{String(index + 1).padStart(2, '0')}]
+                  </span>
+                  <p className="text-xs leading-6 text-[#A1A1A1]">{fix}</p>
+                </div>
               ))}
-            </ol>
+            </div>
           </div>
         </section>
 
-        <section className="bg-white">
+        {/* ── FULL RULE RESULTS ── */}
+        <section className="bg-[#080808] border-b border-[#2A2A2A]">
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-10">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
-                  Rule-by-rule review
+                <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
+                  // RULE-BY-RULE REVIEW
                 </p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
-                  Full compliance check results
+                <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
+                  Full Compliance Check Results
                 </h2>
               </div>
-              <div className="flex gap-3 text-sm font-semibold">
-                <span className="rounded-full bg-emerald-50 px-4 py-2 text-emerald-700">
-                  {passedCount} passed
+              <div className="flex gap-4 font-mono text-[11px]">
+                <span className="text-[#22C55E] uppercase tracking-widest">
+                  PASS: {passedCount}
                 </span>
-                <span className="rounded-full bg-red-50 px-4 py-2 text-red-700">
-                  {failedCount} failed
+                <span className="text-[#6B6B6B]">│</span>
+                <span className="text-[#EF4444] uppercase tracking-widest">
+                  FAIL: {failedCount}
                 </span>
+                {unclearCount > 0 && (
+                  <>
+                    <span className="text-[#6B6B6B]">│</span>
+                    <span className="text-[#6B6B6B] uppercase tracking-widest">
+                      UNCLEAR: {unclearCount}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
 
-            <div className="mt-10 space-y-4">
+            {/* Ledger header row */}
+            <div className="border-b border-[#3A3A3A] pb-2 hidden sm:grid sm:grid-cols-[180px_1fr_100px_90px] gap-4">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Rule ID</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Category</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Severity</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B]">Status</span>
+            </div>
+
+            <div className="space-y-0">
               {result.rules.map((rule) => (
                 <RuleAccordion key={rule.rule_id} rule={rule} />
               ))}
@@ -164,33 +233,36 @@ export default async function ReportPage({ params }: ReportPageProps) {
           </div>
         </section>
 
-        <section className="bg-slate-100">
+        {/* ── FCA SOURCES ── */}
+        <section className="bg-[#0F0F0F] border-b border-[#2A2A2A]">
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
-            <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
-                FCA references
+            <div className="max-w-3xl mb-10">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
+                // FCA REFERENCES
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">
+              <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 Official FCA Sources
               </h2>
             </div>
-            <div className="mt-10 grid gap-4 lg:grid-cols-2">
+            <div className="divide-y divide-[#2A2A2A] border border-[#2A2A2A]">
               {result.sources.map((source) => (
                 <article
                   key={source.url}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                  className="bg-[#080808] p-6"
                 >
-                  <h3 className="text-lg font-semibold text-slate-950">{source.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
+                  <h3 className="font-mono text-xs font-semibold uppercase tracking-wide text-white">
+                    {source.title}
+                  </h3>
+                  <p className="mt-2 text-xs leading-5 text-[#A1A1A1]">
                     {source.description}
                   </p>
                   <a
                     href={source.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-4 inline-flex text-sm font-semibold text-blue-700 underline decoration-blue-300 underline-offset-4 transition hover:text-blue-800"
+                    className="mt-3 inline-flex font-mono text-[11px] text-[#A1A1A1] underline underline-offset-4 decoration-[#3A3A3A] transition hover:text-white"
                   >
-                    Visit source
+                    View source →
                   </a>
                 </article>
               ))}
@@ -198,24 +270,26 @@ export default async function ReportPage({ params }: ReportPageProps) {
           </div>
         </section>
 
-        <section className="bg-white">
-          <div className="mx-auto max-w-3xl px-6 py-8 text-sm leading-7 text-slate-500 sm:px-8 lg:py-10">
-            This report is produced by an automated rule-matching engine that
-            searches page content for the presence or absence of specific text
-            strings required by FCA PS26/1 (Deferred Payment Credit regulation,
-            effective 15 July 2026). This report does NOT constitute legal
-            advice. It is an informational compliance checklist tool only.
-            ClearPay Audit is not authorised or regulated by the FCA.
+        {/* ── DISCLAIMER ── */}
+        <section className="bg-[#080808] border-b border-[#2A2A2A]">
+          <div className="mx-auto max-w-3xl px-6 py-8 sm:px-8 lg:py-10">
+            <p className="font-mono text-[11px] leading-6 text-[#6B6B6B]">
+              This report is produced by an automated rule-matching engine that searches page content for the
+              presence or absence of specific text strings required by FCA PS26/1 (Deferred Payment Credit
+              regulation, effective 15 July 2026). This report does NOT constitute legal advice. It is an
+              informational compliance checklist tool only. ClearPay Audit is not authorised or regulated by the FCA.
+            </p>
           </div>
         </section>
 
-        <section className="bg-[#0f172a] text-white">
+        {/* ── WAITLIST ── */}
+        <section className="bg-[#0F0F0F] border-b border-[#2A2A2A]">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-14 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-16">
             <div className="max-w-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">
-                Ongoing monitoring
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
+                // ONGOING MONITORING
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 Get notified when ongoing monitoring is available
               </h2>
             </div>
@@ -224,6 +298,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
             </div>
           </div>
         </section>
+
       </main>
     </div>
   )
