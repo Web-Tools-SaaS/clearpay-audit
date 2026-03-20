@@ -2,6 +2,12 @@ export type Severity = 'CRITICAL' | 'HIGH' | 'MEDIUM';
 
 export type RuleResult = 'PASS' | 'FAIL' | 'UNCLEAR';
 
+export type RemediationType =
+  | 'THEME_SETTING'
+  | 'COPY_CHANGE'
+  | 'LENDER_CONFIG'
+  | 'LINKED_TERMS_ONLY';
+
 export interface Rule {
   id: string;
   category: string;
@@ -13,6 +19,8 @@ export interface Rule {
   search_mode: 'ANY' | 'ALL';
   fix_suggestion: string;
   invert?: boolean;
+  remediation_type: RemediationType;
+  regulatory_consequence: string | null;
 }
 
 export interface RuleCheckResult {
@@ -25,6 +33,16 @@ export interface RuleCheckResult {
   fca_url: string;
   evidence: string;
   fix_suggestion: string | null;
+  remediation_type: RemediationType;
+  regulatory_consequence: string | null;
+  compliant_wording: string | null;
+  provider_fix: string[] | null;
+}
+
+export interface RemediationRoadmap {
+  this_week: string[];
+  this_month: string[];
+  before_deadline: string[];
 }
 
 export interface AuditResult {
@@ -34,7 +52,8 @@ export interface AuditResult {
   provider: string;
   crawl_word_count: number;
   summary: string;
-  top_3_fixes: string[];
+  roadmap: RemediationRoadmap;
+  top_3_fixes?: string[];
   sources: SourceReference[];
 }
 
