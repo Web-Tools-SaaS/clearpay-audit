@@ -1,4 +1,4 @@
-import type { RuleCheckResult, Severity } from './types';
+import type { RuleCheckResult, RemediationRoadmap, Severity } from './types';
 
 const MAX_SCORE = 100;
 const TOTAL_CHECK_COUNT = 17;
@@ -60,16 +60,22 @@ export function generateSummary(
   return `Your checkout has significant compliance gaps (${criticalFails} critical failures, score: ${score}/100). Immediate remediation is required — non-compliance after July 15, 2026 may result in regulatory action.`;
 }
 
-export function getTop3Fixes(results: RuleCheckResult[]): string[] {
-  return results
-    .filter(
-      (result): result is RuleCheckResult & { fix_suggestion: string } =>
-        result.status !== 'PASS' && result.fix_suggestion !== null,
-    )
-    .sort(
-      (left, right) =>
-        SEVERITY_RANK[left.severity] - SEVERITY_RANK[right.severity],
-    )
-    .slice(0, 3)
-    .map((result) => result.fix_suggestion);
+export function getRoadmap(results: RuleCheckResult[]): RemediationRoadmap {
+  const failing = results.filter(
+    (result): result is RuleCheckResult & { fix_suggestion: string } =>
+      result.status !== 'PASS' && result.fix_suggestion !== null,
+  );
+
+  return {
+    this_week: failing
+      .filter((r) => r.severity === 'CRITICAL')
+      .sort((a, b) => SEVERITY_RANK[a.severity] - SEVERITY_RANK[b.severity])
+      .map((r) => r.fix_suggestion),
+    this_month: failing
+      .filter((r) => r.severity === 'HIGH')
+      .map((r) => r.fix_suggestion),
+    before_deadline: failing
+      .filter((r) => r.severity === 'MEDIUM')
+      .map((r) => r.fix_suggestion),
+  };
 }
