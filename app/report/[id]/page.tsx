@@ -168,7 +168,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
               </h2>
             </div>
             <div className="space-y-0 divide-y divide-[#2A2A2A] border border-[#2A2A2A]">
-              {result.top_3_fixes.map((fix, index) => (
+              {(result.top_3_fixes ?? []).map((fix, index) => (
                 <div
                   key={`${index + 1}-${fix}`}
                   className="flex items-start gap-5 bg-[#080808] p-6"
