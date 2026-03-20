@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ClearPay Audit — UK BNPL Compliance Checker",
@@ -13,8 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`h-full ${ibmPlexMono.variable}`}>
+      <body className="min-h-full flex flex-col bg-[#080808] text-white">
+        {children}
+      </body>
     </html>
   );
 }
