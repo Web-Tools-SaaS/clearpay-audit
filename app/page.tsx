@@ -104,6 +104,24 @@ const stats = [
   "July 15, 2026 hard deadline",
 ] as const;
 
+const coveragePoints = [
+  {
+    heading: "One product page is enough",
+    body:
+      "Shopify and WooCommerce themes apply BNPL display settings globally. If Klarna or Clearpay appears on one product page, the same widget configuration — and the same disclosures, or lack of them — appears on every product page in your store.",
+  },
+  {
+    heading: "The compliance gap is in the theme, not the product",
+    body:
+      "FCA PS26/1 requires the Key Product Information to appear at the point of sale, before the consumer enters into the agreement. That wording is configured once, at the theme or app level. A single audit tells you whether your theme-level configuration meets the standard.",
+  },
+  {
+    heading: "When you might need a second audit",
+    body:
+      "If you operate multiple Shopify stores, use different BNPL providers on different sections of your site, or have a custom-built checkout that departs from your theme defaults — audit each distinct configuration separately.",
+  },
+] as const;
+
 export default function Home() {
   return (
     <div className="min-h-full bg-white text-slate-900">
@@ -139,6 +157,45 @@ export default function Home() {
               No account needed · Results in under 60 seconds · Cites exact FCA
               clauses
             </p>
+          </div>
+        </section>
+
+        {/* One audit covers your store — reassurance section */}
+        <section className="bg-blue-950 text-white">
+          <div className="mx-auto w-full max-w-7xl px-6 py-10 sm:px-8 lg:px-12">
+            <div className="rounded-2xl border border-blue-800 bg-blue-900/60 p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <span className="mt-0.5 shrink-0 text-2xl" aria-hidden="true">
+                  ℹ️
+                </span>
+                <div>
+                  <h2 className="text-lg font-semibold tracking-tight text-white sm:text-xl">
+                    One audit covers your entire store — you don&apos;t need to
+                    audit every product page.
+                  </h2>
+                  <p className="mt-3 text-sm leading-7 text-blue-200">
+                    Shopify and WooCommerce themes apply BNPL settings globally.
+                    When you configure Klarna or Clearpay, the same widget and
+                    the same surrounding disclosure text — or the same absence of
+                    it — appears on every product page across your store. The
+                    compliance gap is in your theme configuration, not in
+                    individual products.
+                  </p>
+                  <div className="mt-6 grid gap-5 sm:grid-cols-3">
+                    {coveragePoints.map((point) => (
+                      <div key={point.heading}>
+                        <p className="text-sm font-semibold text-white">
+                          {point.heading}
+                        </p>
+                        <p className="mt-2 text-sm leading-6 text-blue-300">
+                          {point.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -262,7 +319,7 @@ export default function Home() {
             <p className="font-semibold text-slate-800">ClearPay Audit</p>
             <p className="mt-1">This tool is not legal advice.</p>
           </div>
-          <a
+          
             href="https://www.fca.org.uk/publications/policy-statements/ps26-1-regulation-deferred-payment-credit"
             target="_blank"
             rel="noreferrer"
@@ -274,4 +331,4 @@ export default function Home() {
       </footer>
     </div>
   );
-}
+              }
