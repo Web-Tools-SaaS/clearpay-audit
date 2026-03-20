@@ -140,7 +140,7 @@ export default function Home() {
           <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
             <div className="max-w-2xl mb-12">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // AUDIT WORKFLOW
+                {/* AUDIT WORKFLOW */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 How It Works
@@ -174,7 +174,7 @@ export default function Home() {
           <div className="mx-auto w-full max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
             <div className="max-w-3xl mb-10">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // FCA SCOPE
+                {/* FCA SCOPE */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 What We Check
@@ -218,7 +218,7 @@ export default function Home() {
             {/* Stats panel */}
             <div className="border border-[#2A2A2A] bg-[#0F0F0F] p-8">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1] mb-8">
-                // WHY MERCHANTS ACT NOW
+                {/* WHY MERCHANTS ACT NOW */}
               </p>
               <div className="space-y-6">
                 {stats.map((stat) => (
@@ -235,7 +235,7 @@ export default function Home() {
             {/* Copy panel */}
             <div className="border border-[#2A2A2A] border-t-0 lg:border-t lg:border-l-0 bg-[#0F0F0F] p-8 flex flex-col justify-center">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // WHY IT MATTERS
+                {/* WHY IT MATTERS */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 FCA oversight now reaches merchant BNPL journeys.
