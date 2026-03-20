@@ -161,7 +161,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
             <div className="max-w-3xl mb-10">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // PRIORITY ACTIONS
+                {/* PRIORITY ACTIONS */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 Top 3 Priority Fixes
@@ -192,7 +192,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-10">
               <div>
                 <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                  // RULE-BY-RULE REVIEW
+                  {/* RULE-BY-RULE REVIEW */}
                 </p>
                 <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                   Full Compliance Check Results
@@ -238,7 +238,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <div className="mx-auto w-full max-w-7xl px-6 py-14 sm:px-8 lg:px-12 lg:py-16">
             <div className="max-w-3xl mb-10">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // FCA REFERENCES
+                {/* FCA REFERENCES */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 Official FCA Sources
@@ -287,7 +287,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-14 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-16">
             <div className="max-w-2xl">
               <p className="font-mono text-[11px] uppercase tracking-widest text-[#A1A1A1]">
-                // ONGOING MONITORING
+                {/* ONGOING MONITORING */}
               </p>
               <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
                 Get notified when ongoing monitoring is available
