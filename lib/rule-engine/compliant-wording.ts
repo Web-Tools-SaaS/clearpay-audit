@@ -61,7 +61,7 @@ export const COMPLIANT_WORDING: Record<string, Record<string, string>> = {
     klarna:
       "Missing a Klarna payment may result in a late fee charged by Klarna and could negatively affect your credit score. Klarna may refer overdue amounts to a debt collection agency. You can find full details of Klarna's missed payment consequences in Klarna's terms and conditions.",
     clearpay:
-      'Missing a Clearpay payment will result in a late fee of up to £6 per missed payment, capped at £24 per order or 25% of the order value (whichever is lower). Missed payments may be reported to credit reference agencies and could affect your credit score.',
+      'Missing a Clearpay payment may result in a late fee and could negatively affect your credit score. Missed payments may be reported to credit reference agencies. See Clearpay\'s Terms of Service for full details of missed payment consequences including applicable fee amounts.',
     paypal:
       "Missing a PayPal Pay in 3 payment may result in your account being referred for debt recovery and could negatively affect your credit score. PayPal may carry out a soft credit check before approving Pay in 3. Full details are in PayPal's credit agreement.",
     other:
@@ -81,9 +81,9 @@ export const COMPLIANT_WORDING: Record<string, Record<string, string>> = {
 
   'DPC-007': {
     klarna:
-      'Credit provided by Klarna Financial Services UK Ltd, registered in England and Wales (company number 14290857). Authorised and regulated by the Financial Conduct Authority, Firm Reference Number 1021834. Registered address: 10 York Road, London, SE1 7ND.',
+      'Credit provided by Klarna Financial Services UK Ltd, authorised and regulated by the Financial Conduct Authority, Firm Reference Number 1021834. Verify current details at register.fca.org.uk.',
     clearpay:
-      'Credit provided by Clearpay Finance Ltd, registered in England and Wales (company number 12071087). Authorised and regulated by the Financial Conduct Authority, Firm Reference Number 900950. Registered address: 5th Floor, 4 Hardman Square, Spinningfields, Manchester, M3 3EB.',
+      'Credit provided by Clearpay Finance Ltd, authorised and regulated by the Financial Conduct Authority, Firm Reference Number 900950. Verify current details at register.fca.org.uk.',
     paypal:
       'Credit provided by PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxembourg. Authorised by the Luxembourg Commission de Surveillance du Secteur Financier (CSSF) and deemed authorised by the Prudential Regulation Authority. Subject to regulation by the Financial Conduct Authority and limited regulation by the Prudential Regulation Authority. Details of the Temporary Permissions Regime are on the FCA website at register.fca.org.uk.',
     other:

@@ -46,7 +46,7 @@ function CompliantWordingBlock({ wording }: { wording: string }) {
     <div className="border border-[#22C55E] bg-[#080808] p-4">
       <div className="flex items-center justify-between mb-3">
         <p className="font-mono text-[10px] uppercase tracking-widest text-[#22C55E]">
-          READY-TO-USE DISCLOSURE TEXT
+          EXAMPLE DISCLOSURE TEXT
         </p>
         <button
           type="button"
@@ -60,7 +60,7 @@ function CompliantWordingBlock({ wording }: { wording: string }) {
         {wording}
       </p>
       <p className="mt-2 text-[11px] text-[#6B6B6B]">
-        Paste this text adjacent to your BNPL payment option. It is derived from FCA PS26/1 Chapter 2 requirements.
+        Example wording based on FCA PS26/1 Chapter 2 requirements. Verify all provider details — including FRN and registered address — at register.fca.org.uk before publishing.
       </p>
     </div>
   )
@@ -106,11 +106,13 @@ export default function RuleAccordion({ rule }: RuleAccordionProps) {
             <span className={`h-1.5 w-1.5 block ${statusDot[rule.status]}`} />
             {rule.status}
           </span>
-          <span
-            className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${remediationClasses[ruleDetails.remediation_type]}`}
-          >
-            {ruleDetails.remediation_type.replace('_', ' ')}
-          </span>
+          {ruleDetails.remediation_type ? (
+            <span
+              className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${ruleDetails.remediation_type ? remediationClasses[ruleDetails.remediation_type] : 'border-[#3A3A3A] text-[#6B6B6B]'}`}
+            >
+              {ruleDetails.remediation_type.replace(/_/g, ' ')}
+            </span>
+          ) : null}
           <span className="font-mono text-[11px] text-[#6B6B6B]">
             {expanded ? '▲ hide' : '▼ view'}
           </span>
