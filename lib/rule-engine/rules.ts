@@ -107,11 +107,7 @@ export const RULES: Rule[] = [
       'installment',
       'repayment',
       'payment of',
-      '£',
       'per month',
-      'every',
-      'weeks',
-      'monthly',
     ],
     search_mode: 'ANY',
     fix_suggestion:
@@ -272,7 +268,7 @@ export const RULES: Rule[] = [
       'For Klarna: "Klarna Financial Services UK Ltd, authorised by the FCA, FRN 1021834." ' +
       'For Clearpay: "Clearpay Finance Ltd, authorised by the FCA, FRN [verify at register.fca.org.uk]." ' +
       "Always verify your provider's current FRN at https://register.fca.org.uk before " +
-      'publishing — FRNs can change when a firm updates its regulatory permissions.',
+      "publishing — FRNs can change when a firm updates its regulatory permissions. Note: if your existing copy shows FRN 987816, this is Klarna's old UK entity reference. Klarna updated to FRN 1021834 — update your copy accordingly.",
     remediation_type: 'COPY_CHANGE',
     regulatory_consequence: null
   },

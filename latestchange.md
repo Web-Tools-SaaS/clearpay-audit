@@ -3,6 +3,18 @@
 ## 2026-03-20
 
 ### What changed
+- Updated `app/api/audit/[id]/submit-extra/route.ts` to import `after` from `next/server` and schedule the extra crawl pipeline with `after(...)` so the Edge runtime keeps the work alive after the response is returned.
+- Tightened the `isValidEmail` helper in both `app/api/create-audit/route.ts` and `app/api/waitlist/route.ts` to use a minimal regex that rejects malformed addresses that previously slipped through the `includes` checks.
+- Narrowed the DPC-003 `search_strings` array in `lib/rule-engine/rules.ts` to BNPL-specific repayment wording only, and appended the Klarna FRN 987816 migration note to the DPC-007 `fix_suggestion`.
+- Updated `app/report/[id]/page.tsx` to detect a failed or unclear DPC-001 result and show a warning banner above the score section when the submitted URL appears to be the wrong page for BNPL disclosure analysis.
+- Reviewed the existing `latestchange.md` history and confirmed the 2026-03-19 repo changes were already logged here; this entry adds the missing 2026-03-20 audit/report/rule updates.
+
+### Why this changed
+- Cloudflare Pages Edge isolates terminate immediately after the response unless background work is registered with `after(...)`, malformed email addresses should be rejected before they reach Supabase, overly broad repayment keywords were creating false DPC-003 passes, merchants needed explicit guidance about Klarna's old FRN 987816 copy, and the report now warns when the audit likely ran against the wrong page type.
+
+## 2026-03-20
+
+### What changed
 - Updated `components/report/RuleAccordion.tsx` to show remediation-type badges in the collapsed row and, for failed rules, render the new regulatory consequence, provider remediation steps, and copyable compliant wording blocks inside the expanded panel.
 - Replaced the report page `PRIORITY FIXES` section in `app/report/[id]/page.tsx` with the new roadmap-based remediation layout grouped into this week, this month, and before-deadline urgency buckets.
 - Logged this task in `latestchange.md`.
