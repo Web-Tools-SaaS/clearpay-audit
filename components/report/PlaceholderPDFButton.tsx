@@ -4,9 +4,9 @@ export default function PlaceholderPDFButton() {
   return (
     <button
       type="button"
-      className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15"
+      className="border border-[#3A3A3A] px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-[#6B6B6B] transition hover:border-[#555555] hover:text-[#A1A1A1]"
     >
-      Download PDF (coming soon)
+      [PDF — Coming Soon]
     </button>
   )
 }
