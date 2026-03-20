@@ -1,7 +1,7 @@
 import { RULES } from './rules'
 import { normaliseText, wordCount } from './normalise'
 import { evaluateRule } from './evaluateRule'
-import { calculateScore, generateSummary, getTop3Fixes } from './scorer'
+import { calculateScore, generateSummary, getRoadmap } from './scorer'
 import type { AuditResult, SourceReference } from './types'
 
 const SOURCES: SourceReference[] = [
@@ -35,10 +35,10 @@ const SOURCES: SourceReference[] = [
 export function runRuleEngine(rawText: string, provider: string): AuditResult {
   const clean = normaliseText(rawText)
   const wc = wordCount(clean)
-  const results = RULES.map((rule) => evaluateRule(rule, clean, wc))
+  const results = RULES.map((rule) => evaluateRule(rule, clean, wc, provider))
   const score = calculateScore(results)
   const summary = generateSummary(results, score)
-  const top_3_fixes = getTop3Fixes(results)
+  const roadmap = getRoadmap(results)
   const bnpl_detected =
     results.find((result) => result.rule_id === 'DPC-001')?.status === 'PASS'
 
@@ -49,7 +49,7 @@ export function runRuleEngine(rawText: string, provider: string): AuditResult {
     provider,
     crawl_word_count: wc,
     summary,
-    top_3_fixes,
+    roadmap,
     sources: SOURCES,
   }
 }
