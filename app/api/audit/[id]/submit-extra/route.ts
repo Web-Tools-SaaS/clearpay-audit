@@ -1,6 +1,6 @@
 export const runtime = 'edge'
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { getSupabaseServiceClient } from '@/lib/supabase'
 import { runRuleEngine } from '@/lib/rule-engine/index'
 
@@ -41,9 +41,7 @@ export async function POST(
 
     await supabase.from('audits').update({ status: 'processing' }).eq('id', id)
 
-    runExtraCrawlPipeline(id, urls, audit.crawl_content ?? '').catch((err) =>
-      console.error('Extra crawl error:', err)
-    )
+    after(runExtraCrawlPipeline(id, urls, audit.crawl_content ?? ''))
 
     return NextResponse.json({ status: 'processing' })
   } catch {

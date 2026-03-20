@@ -68,6 +68,8 @@ export default async function ReportPage({ params }: ReportPageProps) {
   }).format(new Date(audit.created_at))
 
   const scoreBarWidth = `${score}%`
+  const dpc001 = result.rules.find((rule) => rule.rule_id === 'DPC-001')
+  const showWrongPageWarning = dpc001?.status === 'FAIL' || dpc001?.status === 'UNCLEAR'
 
   return (
     <div className="min-h-screen bg-[#080808] text-white">
@@ -81,6 +83,25 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <PlaceholderPDFButton />
         </div>
       </header>
+
+      {showWrongPageWarning && (
+        <div className="border-b border-[#F59E0B] bg-[#0F0F0F]">
+          <div className="mx-auto flex w-full max-w-7xl items-start gap-4 px-6 py-4 sm:px-8 lg:px-12">
+            <span className="font-mono text-sm text-[#F59E0B] font-bold shrink-0">[!]</span>
+            <div>
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-widest text-[#F59E0B]">
+                No BNPL provider detected on this page
+              </p>
+              <p className="mt-1 text-xs leading-5 text-[#A1A1A1]">
+                This audit did not find Klarna, Clearpay, or any BNPL provider on the submitted URL.
+                If your store uses BNPL, you may have submitted your homepage, search results, or
+                order confirmation page. Re-run the audit using your product page or cart URL where
+                the Klarna or Clearpay widget appears.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main>
 

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseServiceClient } from '@/lib/supabase'
 
 function isValidEmail(email: string): boolean {
-  return email.includes('@') && email.includes('.')
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 export async function POST(request: NextRequest) {

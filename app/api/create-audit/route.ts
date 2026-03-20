@@ -11,7 +11,7 @@ function isNonEmptyString(value: unknown): value is string {
 }
 
 function isValidEmail(email: string): boolean {
-  return email.includes('@') && email.includes('.')
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 function isValidProvider(
