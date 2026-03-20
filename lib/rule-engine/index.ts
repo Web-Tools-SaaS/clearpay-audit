@@ -11,9 +11,9 @@ const SOURCES: SourceReference[] = [
     description: 'Final FCA policy statement covering deferred payment credit regulation and implementation expectations.',
   },
   {
-    title: 'FCA PS26/1',
+    title: 'FCA CONC Sourcebook',
     url: 'https://www.handbook.fca.org.uk/handbook/CONC/',
-    description: 'Comprehensive conduct of business standards and rules for firms providing consumer credit and related services.',
+    description: 'FCA Conduct of Business Sourcebook covering consumer credit rules and financial promotions standards applicable to DPC lenders.',
   },
   {
     title: 'Amendment Order 2025',
