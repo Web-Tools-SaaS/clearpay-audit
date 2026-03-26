@@ -10,7 +10,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ClearPay Audit — UK BNPL Compliance Checker",
+  title: "PayLater Audit — UK BNPL Compliance Checker",
   description:
     "Check if your checkout is ready for FCA BNPL regulation. Get a full compliance audit against FCA PS26/1 in 60 seconds.",
 };

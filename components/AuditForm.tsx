@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 const providerOptions = [
   { label: 'Klarna', value: 'klarna' },
-  { label: 'Clearpay', value: 'clearpay' },
+  { label: 'PayLater', value: 'clearpay' },
   { label: 'PayPal Pay in 3', value: 'paypal' },
   { label: 'Other', value: 'other' },
 ] as const

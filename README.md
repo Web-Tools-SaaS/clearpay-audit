@@ -1,8 +1,8 @@
-# ClearPay Audit
+# PayLater Audit
 
 **UK BNPL Compliance Checker — FCA PS26/1 Rule Engine**
 
-A deterministic SaaS tool for UK merchants offering Klarna, Clearpay, or PayPal
+A deterministic SaaS tool for UK merchants offering Klarna, PayLater, or PayPal
 Pay in 3. Merchants paste their checkout URL, receive a full compliance audit
 report citing exact FCA clauses for every finding, and download a PDF.
 
@@ -283,7 +283,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON public.waitlist TO service_role;
 { "email": "merchant@store.co.uk", "url": "https://...", "bnpl_provider": "klarna" }
 ```
 
-Valid providers: `klarna` | `clearpay` | `paypal` | `other`
+Valid providers: `klarna` | `clearpay` | `paypal` | `other` (`clearpay` is the internal value used for the PayLater option).
 
 Validates input → creates audit row → fires pipeline via `after()` →
 returns `{ audit_id }` immediately.
@@ -422,7 +422,7 @@ All five cited in every report:
 > page content for the presence or absence of specific text strings required
 > by FCA PS26/1 (Deferred Payment Credit regulation, effective 15 July 2026).
 > This report does NOT constitute legal advice. It is an informational
-> compliance checklist tool only. ClearPay Audit is not authorised or
+> compliance checklist tool only. PayLater Audit is not authorised or
 > regulated by the FCA.
 
 ---
