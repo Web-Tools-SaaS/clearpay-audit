@@ -78,7 +78,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
       <header className="border-b border-[#2A2A2A] bg-[#080808]">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-4 sm:px-8 lg:px-12">
           <span className="font-mono text-sm font-semibold uppercase tracking-widest text-white">
-            ClearPay Audit
+            PayLater Audit
           </span>
           <PlaceholderPDFButton />
         </div>
@@ -93,10 +93,10 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 No BNPL provider detected on this page
               </p>
               <p className="mt-1 text-xs leading-5 text-[#A1A1A1]">
-                This audit did not find Klarna, Clearpay, or any BNPL provider on the submitted URL.
+                This audit did not find Klarna, PayLater, or any BNPL provider on the submitted URL.
                 If your store uses BNPL, you may have submitted your homepage, search results, or
                 order confirmation page. Re-run the audit using your product page or cart URL where
-                the Klarna or Clearpay widget appears.
+                the Klarna or PayLater widget appears.
               </p>
             </div>
           </div>
@@ -381,7 +381,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
               This report is produced by an automated rule-matching engine that searches page content for the
               presence or absence of specific text strings required by FCA PS26/1 (Deferred Payment Credit
               regulation, effective 15 July 2026). This report does NOT constitute legal advice. It is an
-              informational compliance checklist tool only. ClearPay Audit is not authorised or regulated by the FCA.
+              informational compliance checklist tool only. PayLater Audit is not authorised or regulated by the FCA.
             </p>
           </div>
         </section>

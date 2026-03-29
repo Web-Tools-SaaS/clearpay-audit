@@ -317,7 +317,7 @@ export default function ProcessingPage() {
           </button>
           <a
             className="text-center font-mono text-[11px] text-[#A1A1A1] underline underline-offset-4 decoration-[#3A3A3A] transition hover:text-white"
-            href="mailto:support@clearpayaudit.com"
+            href="mailto:support@paylateraudit.com"
           >
             Contact support
           </a>

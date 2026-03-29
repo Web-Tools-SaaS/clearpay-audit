@@ -194,3 +194,14 @@
 
 ### Why this changed
 - The project now has a minimal shared helper for server-side routes that need service-role Supabase access without duplicating environment variable checks across API code.
+
+## 2026-03-26
+
+### What changed
+- Updated website-facing brand copy across the landing page, report page header/disclaimer, and app metadata from `ClearPay Audit` to `PayLater Audit`.
+- Updated all visible `Clearpay` provider mentions on website UI copy to `PayLater` (including homepage messaging and report warning copy), while keeping internal provider values unchanged to avoid API/database breakage.
+- Updated the provider dropdown label in `components/AuditForm.tsx` from `Clearpay` to `PayLater` while preserving the submitted value (`clearpay`) for backward compatibility with existing validation and stored records.
+- Updated the support contact mailto link on the processing error screen to `support@paylateraudit.com`.
+
+### Why this changed
+- The product branding and customer-facing provider naming were updated from Clearpay to PayLater, so all website-visible wording now matches the new naming without introducing breaking changes in the backend provider contract.

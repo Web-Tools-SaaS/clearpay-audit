@@ -1,7 +1,7 @@
 import AuditForm from "@/components/AuditForm";
 
 const complianceChecks = [
-  { label: "Detects Klarna, Clearpay, PayPal Pay in 3, or other BNPL presence", severity: "CRITICAL" },
+  { label: "Detects Klarna, PayLater, PayPal Pay in 3, or other BNPL presence", severity: "CRITICAL" },
   { label: "States BNPL is credit, not just a payment option", severity: "CRITICAL" },
   { label: "Shows the number and amount of repayments clearly", severity: "CRITICAL" },
   { label: "Discloses the 0% interest rate explicitly", severity: "CRITICAL" },
@@ -47,7 +47,7 @@ const stats = [
 const coveragePoints = [
   {
     heading: "One product page is enough",
-    body: "Shopify and WooCommerce themes apply BNPL display settings globally. If Klarna or Clearpay appears on one product page, the same widget configuration applies across your store.",
+    body: "Shopify and WooCommerce themes apply BNPL display settings globally. If Klarna or PayLater appears on one product page, the same widget configuration applies across your store.",
   },
   {
     heading: "The compliance gap is in the theme, not the product",
@@ -67,7 +67,7 @@ export default function Home() {
       <nav className="border-b border-[#2A2A2A] bg-[#080808]">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 sm:px-8 lg:px-12">
           <span className="font-mono text-sm font-semibold uppercase tracking-widest text-white">
-            ClearPay Audit
+            PayLater Audit
           </span>
           <span className="border border-[#3A3A3A] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1]">
             FCA PS26/1
@@ -87,7 +87,7 @@ export default function Home() {
               Is Your Checkout Ready for FCA BNPL Regulation?
             </h1>
             <p className="mt-6 max-w-2xl text-sm leading-7 text-[#A1A1A1]">
-              The FCA&apos;s July 15, 2026 deadline applies to every UK merchant offering Klarna or Clearpay.
+              The FCA&apos;s July 15, 2026 deadline applies to every UK merchant offering Klarna or PayLater.
               Get a full compliance audit in 60 seconds — check all 17 FCA PS26/1 requirements against your checkout.
             </p>
             <div className="mt-10 flex w-full justify-center">
@@ -110,7 +110,7 @@ export default function Home() {
                     One audit covers your entire store — you don&apos;t need to audit every product page.
                   </h2>
                   <p className="mt-3 text-xs leading-6 text-[#A1A1A1]">
-                    Shopify and WooCommerce themes apply BNPL settings globally. When you configure Klarna or Clearpay,
+                    Shopify and WooCommerce themes apply BNPL settings globally. When you configure Klarna or PayLater,
                     the same widget and the same surrounding disclosure text — or the same absence of it — appears on
                     every product page across your store. The compliance gap is in your theme configuration, not in individual products.
                   </p>
@@ -242,9 +242,9 @@ export default function Home() {
               </h2>
               <p className="mt-6 text-xs leading-7 text-[#A1A1A1]">
                 FCA PS26/1 brings Deferred Payment Credit promotions and checkout disclosures into a regulated
-                standard from 15 July 2026. If a UK merchant surfaces Klarna or Clearpay without the right
+                standard from 15 July 2026. If a UK merchant surfaces Klarna or PayLater without the right
                 pre-contract wording, lender details, or risk disclosures, the checkout journey can expose the
-                business to remediation costs, delayed launches, and regulator scrutiny. ClearPay Audit gives
+                business to remediation costs, delayed launches, and regulator scrutiny. PayLater Audit gives
                 operations, legal, and eCommerce teams a fast first-pass compliance view before a manual legal review.
               </p>
             </div>
@@ -258,7 +258,7 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-6 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-12">
           <div>
             <p className="font-mono text-xs font-semibold uppercase tracking-widest text-white">
-              ClearPay Audit
+              PayLater Audit
             </p>
             <p className="mt-1 font-mono text-[11px] text-[#6B6B6B]">
               This tool is not legal advice.
