@@ -1,7 +1,7 @@
 import type { RuleCheckResult, RemediationRoadmap, Severity } from './types';
 
 const MAX_SCORE = 100;
-const TOTAL_CHECK_COUNT = 17;
+const TOTAL_CHECK_COUNT = 18;
 
 const SEVERITY_WEIGHTS: Record<Severity, number> = {
   CRITICAL: 20,

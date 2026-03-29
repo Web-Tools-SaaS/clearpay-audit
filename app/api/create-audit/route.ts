@@ -3,8 +3,9 @@ export const runtime = 'edge'
 import { NextRequest, NextResponse, after } from 'next/server'
 import { runRuleEngine } from '@/lib/rule-engine/index'
 import { getSupabaseServiceClient } from '@/lib/supabase'
+import { crawlUrl } from '@/lib/crawler'
 
-const VALID_PROVIDERS = ['klarna', 'clearpay', 'paypal', 'other'] as const
+const VALID_PROVIDERS = ['klarna', 'clearpay', 'paypal', 'klarna_clearpay', 'other'] as const
 
 function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
@@ -81,19 +82,11 @@ async function runAuditPipeline(auditId: string): Promise<void> {
       throw new Error('Audit not found')
     }
 
-    const jinaUrl = `https://r.jina.ai/${audit.url}`
-    const crawlRes = await fetch(jinaUrl, {
-      headers: {
-        Authorization: `Bearer ${process.env.JINA_API_KEY}`,
-        Accept: 'text/plain',
-      },
-    })
+    const { text: crawlText, ok: crawlOk, status: crawlStatus } = await crawlUrl(audit.url)
 
-    if (!crawlRes.ok) {
-      throw new Error(`Jina crawl failed: ${crawlRes.status}`)
+    if (!crawlOk) {
+      throw new Error(`Crawl failed: ${crawlStatus}`)
     }
-
-    const crawlText = await crawlRes.text()
     const wc = crawlText.trim().split(/\s+/).length
 
     if (wc < 400) {

@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation'
 
 const providerOptions = [
   { label: 'Klarna', value: 'klarna' },
-  { label: 'PayLater', value: 'clearpay' },
+  { label: 'Clearpay', value: 'clearpay' },
   { label: 'PayPal Pay in 3', value: 'paypal' },
+  { label: 'Klarna + Clearpay (both)', value: 'klarna_clearpay' },
   { label: 'Other', value: 'other' },
 ] as const
 
@@ -67,7 +68,7 @@ export default function AuditForm() {
             required
             value={url}
             onChange={(event) => setUrl(event.target.value)}
-            placeholder="https://mystore.co.uk/products/example"
+            placeholder="https://mystore.co.uk/products/any-product-with-klarna"
             className="w-full border border-[#3A3A3A] bg-[#080808] px-4 py-3 font-mono text-xs text-white placeholder-[#6B6B6B] outline-none transition focus:border-white focus:ring-0"
           />
         </div>

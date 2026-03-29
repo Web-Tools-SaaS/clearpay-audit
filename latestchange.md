@@ -1,5 +1,35 @@
 # Latest Change
 
+## 2026-03-29
+
+### What changed
+- Replaced DPC-002 search_strings with credit-specific phrases that exclude generic "credit card" false positives. New strings include 'credit agreement', 'form of credit', 'entering into a credit', 'you are borrowing', 'short-term fixed sum loan', and 14 additional variants.
+- Replaced DPC-003 search_strings with BNPL-specific repayment phrases. Removed 'payment of' and 'per month' which caused false positives on shipping/subscription copy. New strings include 'instalments of £', 'interest-free instalments', 'first payment today', '4 instalments due every'.
+- Replaced DPC-015 search_strings with credit-specific signpost phrases. Removed 'more information', 'learn more', 'read more' which matched generic navigation links on every retail page. New strings include 'full credit terms', 'additional product information', 'your payment rights', 'before entering'.
+- Massively expanded search_strings across all 17 existing rules (DPC-001 through DPC-017) based on primary source research: FCA PS26/1 PDF, CONC 3.3 and 4.2A, Klarna UK merchant docs, Clearpay ToS, and PayPal Pay in 3 UK terms.
+- Added new rule DPC-018 (HIGH, -10 points) for KPI requirement on total amount of credit as required by CONC 4.2A. Updated TOTAL_CHECK_COUNT in scorer.ts from 17 to 18.
+- Added prohibited phrases to DPC-010: 'strapped for cash', 'dont wait until payday', 'broke af', 'cant afford it now', 'spend more', 'max out', 'instant approval', 'guaranteed approval', 'no credit check', 'pay nothing now', and additional variants sourced from Klarna UK legal guidelines and CONC 3.3.
+- Added 'klarna_clearpay' to the provider dropdown in AuditForm.tsx with label 'Klarna + Clearpay (both)'. Reverted 'PayLater' dropdown label back to 'Clearpay' (the provider name, not our product name).
+- Added 'klarna_clearpay' to VALID_PROVIDERS in create-audit/route.ts.
+- Added mergeProviderResults() helper and updated runRuleEngine() in lib/rule-engine/index.ts to handle 'klarna_clearpay' provider by running the engine for both providers and merging results (PASS if either passes).
+- Changed score label 'COMPLIANT' to 'DISCLOSURES DETECTED', 'AMBER — ACTION REQUIRED' to 'GAPS DETECTED — REVIEW NEEDED', 'NON-COMPLIANT — IMMEDIATE ACTION' to 'SIGNIFICANT GAPS — ACTION REQUIRED' in app/report/[id]/page.tsx.
+- Changed score panel heading from 'COMPLIANCE SCORE' to 'DISCLOSURE COVERAGE' and report h1 from 'FCA BNPL Compliance Report' to 'FCA BNPL Disclosure Coverage Report'.
+- Added small disclaimer box below the score panel in the report page.
+- Added statusDisplayLabel mapping in RuleAccordion.tsx: PASS → 'DETECTED', FAIL → 'NOT DETECTED', UNCLEAR → 'INCONCLUSIVE'. Applied to rendered status badges only — internal logic still uses PASS/FAIL/UNCLEAR.
+- Updated coveragePoints in app/page.tsx to give platform-specific guidance (Shopify vs WooCommerce) instead of generic store-wide advice.
+- Updated AuditForm URL placeholder to 'https://mystore.co.uk/products/any-product-with-klarna'.
+- Created lib/crawler.ts as a crawl abstraction layer with crawlUrl() export. Replaced direct Jina fetch calls in both API routes with crawlUrl() calls.
+- Created lib/payment.ts as a payment provider abstraction placeholder.
+- Added PAYMENT_PROVIDER= to .env.example and .dev.vars.example.
+- Changed wrangler.toml name from 'clearpay-audit' to 'paylater-audit'.
+- Changed package.json name from 'clearpay-audit' to 'paylater-audit'.
+
+### Why this changed
+- Rule string false positives (DPC-002, DPC-003, DPC-015) were causing merchants with no BNPL disclosures to pass checks incorrectly — a product-destroying bug for a compliance tool.
+- Research against primary FCA and provider sources revealed additional real-world disclosure phrases used by Klarna OSM widgets and Clearpay T&C that need to be covered by the engine.
+- Terminology 'COMPLIANT' and 'PASS'/'FAIL' create legal risk as they imply a legal determination — changed to detection-based language.
+- Crawler and payment abstraction makes future provider swaps (e.g. Jina → Firecrawl, Lemon Squeezy → Dodo Payments) a single-file change.
+
 ## 2026-03-20
 
 ### What changed

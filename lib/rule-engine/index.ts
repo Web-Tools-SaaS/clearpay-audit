@@ -32,7 +32,80 @@ const SOURCES: SourceReference[] = [
   },
 ]
 
+
+function mergeProviderResults(
+  klarnaResult: AuditResult,
+  clearpayResult: AuditResult,
+): AuditResult {
+  const mergedRules = klarnaResult.rules.map((klarnaRule) => {
+    const clearpayRule = clearpayResult.rules.find(
+      (r) => r.rule_id === klarnaRule.rule_id,
+    )
+
+    if (!clearpayRule) {
+      return klarnaRule
+    }
+
+    // A rule PASSes if EITHER provider passes
+    if (klarnaRule.status === 'PASS' || clearpayRule.status === 'PASS') {
+      return { ...klarnaRule, status: 'PASS' as const }
+    }
+
+    // Both failed — combine compliant_wording and provider_fix
+    const combinedWording = [
+      klarnaRule.compliant_wording
+        ? `--- FOR KLARNA ---\n${klarnaRule.compliant_wording}`
+        : null,
+      clearpayRule.compliant_wording
+        ? `--- FOR CLEARPAY ---\n${clearpayRule.compliant_wording}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join('\n\n')
+
+    const combinedFix = [
+      klarnaRule.provider_fix && klarnaRule.provider_fix.length > 0
+        ? ['--- KLARNA STEPS ---', ...klarnaRule.provider_fix]
+        : null,
+      clearpayRule.provider_fix && clearpayRule.provider_fix.length > 0
+        ? ['--- CLEARPAY STEPS ---', ...clearpayRule.provider_fix]
+        : null,
+    ]
+      .filter(Boolean)
+      .flat() as string[]
+
+    return {
+      ...klarnaRule,
+      compliant_wording: combinedWording || null,
+      provider_fix: combinedFix.length > 0 ? combinedFix : null,
+    }
+  })
+
+  const score = calculateScore(mergedRules)
+  const summary = generateSummary(mergedRules, score)
+  const roadmap = getRoadmap(mergedRules)
+  const bnpl_detected =
+    mergedRules.find((r) => r.rule_id === 'DPC-001')?.status === 'PASS'
+
+  return {
+    rules: mergedRules,
+    score,
+    bnpl_detected,
+    provider: 'klarna_clearpay',
+    crawl_word_count: klarnaResult.crawl_word_count,
+    summary,
+    roadmap,
+    sources: klarnaResult.sources,
+  }
+}
+
 export function runRuleEngine(rawText: string, provider: string): AuditResult {
+  if (provider === 'klarna_clearpay') {
+    const klarnaResult = runRuleEngine(rawText, 'klarna')
+    const clearpayResult = runRuleEngine(rawText, 'clearpay')
+    return mergeProviderResults(klarnaResult, clearpayResult)
+  }
+
   const clean = normaliseText(rawText)
   const wc = wordCount(clean)
   const results = RULES.map((rule) => evaluateRule(rule, clean, wc, provider))

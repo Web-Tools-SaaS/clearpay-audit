@@ -3,6 +3,7 @@ export const runtime = 'edge'
 import { NextRequest, NextResponse, after } from 'next/server'
 import { getSupabaseServiceClient } from '@/lib/supabase'
 import { runRuleEngine } from '@/lib/rule-engine/index'
+import { crawlUrl } from '@/lib/crawler'
 
 function isValidUrls(value: unknown): value is string[] {
   return (
@@ -60,18 +61,11 @@ async function runExtraCrawlPipeline(
     let allExtraText = ''
 
     for (const url of extraUrls) {
-      const response = await fetch(`https://r.jina.ai/${url}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.JINA_API_KEY}`,
-          Accept: 'text/plain',
-        },
-      })
+      const { text: pageText, ok: pageOk } = await crawlUrl(url)
 
-      if (!response.ok) {
+      if (!pageOk) {
         continue
       }
-
-      const pageText = await response.text()
       allExtraText += ` ${pageText}`
     }
 

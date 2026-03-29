@@ -16,8 +16,9 @@ report citing exact FCA clauses for every finding, and download a PDF.
 |---|---|---|
 | Week 1 | Rule engine, 17 rules, Supabase schema | ✅ Done |
 | Week 2 | Full pipeline, all UI pages, cart-gated flow | ✅ Done |
-| Week 3 | PDF download (jsPDF), Lemon Squeezy paywall | 🔨 Next |
-| Week 4 | Screenshot OCR fallback, error polish, production domain | ⏳ Pending |
+| Week 3 | Rule engine research, string expansion to 18 rules, multi-provider, terminology, crawler/payment abstraction | ✅ Done |
+| Week 4 | PDF download (jsPDF), Lemon Squeezy paywall | 🔨 Next |
+| Week 5 | Screenshot OCR fallback, error polish, production domain | ⏳ Pending |
 
 **Hard deadline:** First paying customer by **May 15, 2026**
 
