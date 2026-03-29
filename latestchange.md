@@ -1,3 +1,16 @@
+## 2026-03-29
+
+### What changed
+- Installed jspdf as a runtime dependency. No @types package required — jsPDF bundles its own TypeScript definitions.
+- Created lib/pdf-access.ts with a single exported isPdfUnlocked(paymentStatus) function. Currently returns true for all audits. To add payment gating with any provider in future, change the single return statement — no other files need updating.
+- Created lib/generate-pdf.ts, a pure client-side PDF generation module. Accepts AuditResult and PdfMeta, returns a jsPDF document instance. Builds a multi-page A4 PDF: cover page with score panel and audit metadata, remediation roadmap page with CRITICAL/HIGH/MEDIUM sections, full 18-rule results pages sorted by severity and status (CRITICAL FAILs first), and a final sources and disclaimer page. Never imported statically — only loaded via dynamic import() inside the button component.
+- Replaced components/report/PlaceholderPDFButton.tsx (was a static stub) with a full client component that accepts auditResult, auditUrl, bnplProvider, createdAt, score, auditId, and isUnlocked props. On click: dynamically imports lib/generate-pdf, generates the PDF, and triggers browser download as paylater-audit-[shortId].pdf. Shows a loading spinner during generation. Has an isUnlocked=false path ready for future payment gating (renders "Unlock PDF Report" CTA without crashing).
+- Updated app/report/[id]/page.tsx to import isPdfUnlocked, compute isUnlocked from audit.payment_status, and pass all required props to PlaceholderPDFButton. Also fixed a layout bug in the score panel wrapper: changed from flex (row, which stacked score panel and disclaimer side-by-side) to flex-col items-end (vertical stack, correct layout).
+- Updated README.md Week 4 status to Done and updated the PlaceholderPDFButton description.
+
+### Why this changed
+- Week 4 scope: PDF download is the main deliverable before the paywall. jsPDF is pure browser JS — zero Cloudflare edge runtime issues. Dynamic import means ~280KB is only loaded when the merchant actually clicks Download. The payment gate abstraction in lib/pdf-access.ts means adding Lemon Squeezy, Dodo Payments, or any other provider in Week 5+ requires changing exactly one line and no component refactoring.
+
 # Latest Change
 
 ## 2026-03-29
