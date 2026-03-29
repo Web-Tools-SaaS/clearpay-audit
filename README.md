@@ -17,7 +17,7 @@ report citing exact FCA clauses for every finding, and download a PDF.
 | Week 1 | Rule engine, 17 rules, Supabase schema | ✅ Done |
 | Week 2 | Full pipeline, all UI pages, cart-gated flow | ✅ Done |
 | Week 3 | Rule engine research, string expansion to 18 rules, multi-provider, terminology, crawler/payment abstraction | ✅ Done |
-| Week 4 | PDF download (jsPDF), Lemon Squeezy paywall | 🔨 Next |
+| Week 4 | PDF download (jsPDF), lib/pdf-access.ts payment gate abstraction | ✅ Done |
 | Week 5 | Screenshot OCR fallback, error polish, production domain | ⏳ Pending |
 
 **Hard deadline:** First paying customer by **May 15, 2026**
@@ -117,7 +117,7 @@ POST /api/create-audit
   → Score circle (colour-coded)
   → Top 3 priority fixes
   → Full 17-rule accordion results with evidence + FCA citations
-  → Download PDF button (jsPDF, coming Week 3)
+  → Download PDF button (jsPDF, dynamically generated client-side)
   → Waitlist CTA
 ```
 
@@ -330,8 +330,9 @@ Server component (SSR, fast). Fetches directly from Supabase. Sections:
 score hero, top 3 fixes, full 17-rule accordion (expand/collapse,
 evidence + FCA source + fix suggestion), FCA sources, disclaimer, waitlist CTA.
 
-**PlaceholderPDFButton:** Currently shows "Download PDF (coming soon)".
-Will be wired to jsPDF in Week 3.
+**PDFButton:** Fully wired. Dynamically imports jsPDF on button click,
+builds a multi-page PDF from the audit_result JSON, and triggers browser
+download. Gated via lib/pdf-access.ts — currently unlocked for all audits.
 
 ---
 

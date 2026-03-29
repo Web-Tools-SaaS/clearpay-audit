@@ -6,6 +6,7 @@ import type { AuditResult } from '@/lib/rule-engine/types'
 import PlaceholderPDFButton from '@/components/report/PlaceholderPDFButton'
 import RuleAccordion from '@/components/report/RuleAccordion'
 import WaitlistForm from '@/components/report/WaitlistForm'
+import { isPdfUnlocked } from '@/lib/pdf-access'
 
 type Roadmap = {
   this_week: string[]
@@ -47,7 +48,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
   const { data: audit } = await supabase
     .from('audits')
     .select(
-      'id, status, score, crawl_status, audit_result, url, bnpl_provider, created_at'
+      'id, status, score, crawl_status, audit_result, url, bnpl_provider, created_at, payment_status'
     )
     .eq('id', id)
     .single()
@@ -68,6 +69,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
   }).format(new Date(audit.created_at))
 
   const scoreBarWidth = `${score}%`
+  const isUnlocked = isPdfUnlocked(audit.payment_status ?? null)
   const dpc001 = result.rules.find((rule) => rule.rule_id === 'DPC-001')
   const showWrongPageWarning = dpc001?.status === 'FAIL' || dpc001?.status === 'UNCLEAR'
 
@@ -80,7 +82,15 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <span className="font-mono text-sm font-semibold uppercase tracking-widest text-white">
             PayLater Audit
           </span>
-          <PlaceholderPDFButton />
+          <PlaceholderPDFButton
+                  auditResult={result}
+                  auditUrl={audit.url}
+                  bnplProvider={audit.bnpl_provider ?? result.provider}
+                  createdAt={formattedDate}
+                  score={score}
+                  auditId={id}
+                  isUnlocked={isUnlocked}
+                />
         </div>
       </header>
 
@@ -149,7 +159,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
             </div>
 
             {/* Score panel */}
-            <div className="flex justify-center lg:justify-end">
+            <div className="flex flex-col items-center lg:items-end justify-start">
               <div
                 className="border bg-[#0F0F0F] p-8 w-full max-w-[300px] flex flex-col"
                 style={{ borderColor: scoreTone.borderColor, borderLeftWidth: '4px' }}
