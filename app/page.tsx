@@ -46,16 +46,16 @@ const stats = [
 
 const coveragePoints = [
   {
-    heading: "One product page is enough",
-    body: "Shopify and WooCommerce themes apply BNPL display settings globally. If Klarna or PayLater appears on one product page, the same widget configuration applies across your store.",
+    heading: "Shopify stores: audit any product page",
+    body: "Shopify applies BNPL widget settings globally at theme level. One product page where Klarna or Clearpay appears gives us the same configuration as every other page in your store.",
   },
   {
-    heading: "The compliance gap is in the theme, not the product",
-    body: "FCA PS26/1 requires the Key Product Information to appear at the point of sale. That wording is configured once, at the theme or app level. A single audit tells you whether your configuration meets the standard.",
+    heading: "WooCommerce and custom checkouts: audit your checkout page",
+    body: "WooCommerce and custom-built checkouts vary by configuration. Submit your actual checkout URL — the page where the customer selects their payment method — for the most accurate result.",
   },
   {
-    heading: "When you might need a second audit",
-    body: "If you operate multiple Shopify stores, use different BNPL providers on different sections, or have a custom-built checkout that departs from your theme defaults — audit each distinct configuration separately.",
+    heading: "When to audit multiple pages",
+    body: "If you use different BNPL providers on different store sections, or operate multiple stores, audit one representative page per distinct configuration. You do not need to audit every product.",
   },
 ] as const;
 

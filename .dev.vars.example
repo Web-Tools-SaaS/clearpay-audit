@@ -3,3 +3,6 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 NEXT_PUBLIC_BASE_URL=http://localhost:3000
 JINA_API_KEY=
+
+# Payment provider: 'lemonsqueezy' | 'dodopayments' | 'none' (default: none — all audits marked paid)
+PAYMENT_PROVIDER=

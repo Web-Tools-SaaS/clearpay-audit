@@ -21,7 +21,7 @@ function getScoreTone(score: number) {
   if (score >= 80) {
     return {
       color: '#22C55E',
-      label: 'COMPLIANT',
+      label: 'DISCLOSURES DETECTED',
       borderColor: '#22C55E',
     }
   }
@@ -29,14 +29,14 @@ function getScoreTone(score: number) {
   if (score >= 60) {
     return {
       color: '#F59E0B',
-      label: 'AMBER — ACTION REQUIRED',
+      label: 'GAPS DETECTED — REVIEW NEEDED',
       borderColor: '#F59E0B',
     }
   }
 
   return {
     color: '#EF4444',
-    label: 'NON-COMPLIANT — IMMEDIATE ACTION',
+    label: 'SIGNIFICANT GAPS — ACTION REQUIRED',
     borderColor: '#EF4444',
   }
 }
@@ -123,7 +123,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 Audit completed {formattedDate}
               </p>
               <h1 className="mt-4 max-w-3xl text-xl font-bold uppercase tracking-tight text-white sm:text-2xl">
-                FCA BNPL Compliance Report
+                FCA BNPL Disclosure Coverage Report
               </h1>
               <p className="mt-4 max-w-2xl text-xs leading-6 text-[#A1A1A1]">
                 {result.summary}
@@ -155,7 +155,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
                 style={{ borderColor: scoreTone.borderColor, borderLeftWidth: '4px' }}
               >
                 <p className="font-mono text-[10px] uppercase tracking-widest text-[#A1A1A1] mb-4">
-                  COMPLIANCE SCORE
+                  DISCLOSURE COVERAGE
                 </p>
                 <p
                   className="font-mono text-7xl font-bold leading-none"
@@ -178,6 +178,12 @@ export default async function ReportPage({ params }: ReportPageProps) {
                   style={{ color: scoreTone.color }}
                 >
                   {scoreTone.label}
+                </p>
+              </div>
+
+              <div className="border border-[#3A3A3A] bg-[#0F0F0F] p-4 mt-4 w-full max-w-[300px]">
+                <p className="font-mono text-[10px] leading-5 text-[#6B6B6B]">
+                  This score reflects automated detection of disclosure text strings only. It does not constitute a legal compliance assessment. Verify all findings before relying on this report.
                 </p>
               </div>
             </div>

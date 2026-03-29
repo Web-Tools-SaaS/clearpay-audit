@@ -25,6 +25,12 @@ const statusDot = {
   UNCLEAR: 'bg-[#6B6B6B]',
 } as const
 
+const statusDisplayLabel: Record<string, string> = {
+  PASS: 'DETECTED',
+  FAIL: 'NOT DETECTED',
+  UNCLEAR: 'INCONCLUSIVE',
+}
+
 const remediationClasses = {
   THEME_SETTING: 'border-[#3B82F6] text-[#3B82F6]',
   COPY_CHANGE: 'border-[#F59E0B] text-[#F59E0B]',
@@ -104,7 +110,7 @@ export default function RuleAccordion({ rule }: RuleAccordionProps) {
             className={`border px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest flex items-center gap-1.5 ${statusClasses[rule.status]}`}
           >
             <span className={`h-1.5 w-1.5 block ${statusDot[rule.status]}`} />
-            {rule.status}
+            {statusDisplayLabel[rule.status] ?? rule.status}
           </span>
           {ruleDetails.remediation_type ? (
             <span
